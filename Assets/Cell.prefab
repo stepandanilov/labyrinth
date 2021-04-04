@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6622649458647102674}
   - component: {fileID: 8795758758248798470}
   - component: {fileID: 218167640251650950}
+  - component: {fileID: 3836302304741100787}
   m_Layer: 0
   m_Name: Wall Left
   m_TagString: Untagged
@@ -147,6 +148,27 @@ EdgeCollider2D:
   m_Points:
   - {x: 0, y: 0}
   - {x: 0, y: 1}
+--- !u!50 &3836302304741100787
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395823300407172018}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7402818318308394673
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +180,7 @@ GameObject:
   - component: {fileID: 6667853607558947571}
   - component: {fileID: 4188779973777253258}
   - component: {fileID: 8078590923638903662}
+  - component: {fileID: 640137733186222620}
   m_Layer: 0
   m_Name: Wall Bottom
   m_TagString: Untagged
@@ -294,6 +317,27 @@ EdgeCollider2D:
   m_Points:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
+--- !u!50 &640137733186222620
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402818318308394673}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7497749547203393379
 GameObject:
   m_ObjectHideFlags: 0

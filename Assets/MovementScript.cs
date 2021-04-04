@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
-    public float speed = 0.03f;
+    public float speed = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,25 +14,8 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("w"))
-        {
-            Vector3 vector = new Vector3(0, speed, 0);
-            transform.position += vector;
-        }
-        if (Input.GetKey("a"))
-        {
-            Vector3 vector = new Vector3(-1 * speed, 0, 0);
-            transform.position += vector;
-        }
-        if (Input.GetKey("s"))
-        {
-            Vector3 vector = new Vector3(0, -1 * speed, 0);
-            transform.position += vector;
-        }
-        if (Input.GetKey("d"))
-        {
-            Vector3 vector = new Vector3(speed, 0, 0);
-            transform.position += vector;
-        }
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed, 0.0f);
+
+        transform.position += movement * Time.deltaTime; 
     }
 }
