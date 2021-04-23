@@ -9,8 +9,7 @@ public class WinningCondition : MonoBehaviour
     {
         if (collision.gameObject.name.StartsWith("Finish"))
         {
-            Debug.Log("Win!");
+            WinMenu.staticWinMenu.Victory();
         }
-
     }
 }
