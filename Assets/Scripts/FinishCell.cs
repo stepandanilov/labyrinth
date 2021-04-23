@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cell : MonoBehaviour
+public class FinishCell : MonoBehaviour
 {
     public GameObject WallLeft;
     public GameObject WallBottom;
+    public GameObject WallRight;
+    public GameObject WallTop;
 }
-
-
