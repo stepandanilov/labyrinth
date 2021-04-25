@@ -25,11 +25,12 @@ public class WinMenu : MonoBehaviour
     public void ResetGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void LoadSettingMenu()
     {
-        Debug.Log("Load settings...");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1);
     }
     public void LoadMainMenu()
     {

@@ -22,8 +22,8 @@ public class MazeGeneratorCell
 
 public class MazeGenerator
 {
-    public int Width = 5;
-    public int Height = 5;
+    public int Width = Globals.mazeWidth;
+    public int Height = Globals.mazeHeight;
     public MazeGeneratorCell[,] GenerateMaze()
     {
         MazeGeneratorCell[,] maze = new MazeGeneratorCell[Width, Height];
