@@ -19,7 +19,6 @@ public class MazeGeneratorCell
 
     public bool IsFinishCell= false;
 }
-
 public class MazeGenerator
 {
     public int Width = Globals.mazeWidth;

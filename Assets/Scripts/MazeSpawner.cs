@@ -6,9 +6,16 @@ public class MazeSpawner : MonoBehaviour
 {
     public GameObject CellPrefab;
     public GameObject FinishCellPrefab;
+    public GameObject TriangleCellPrefab;
+    public GameObject TriangleFinishCellPrefab;
+
     public Transform Player;
     // Start is called before the first frame update
     public void Start()
+    {
+        deltaMaze();
+    }
+    public void gammaMaze()
     {
         MazeGenerator generator = new MazeGenerator();
         MazeGeneratorCell[,] maze = generator.GenerateMaze();
@@ -62,6 +69,49 @@ public class MazeSpawner : MonoBehaviour
                         f.WallBottom.SetActive(false);
                         f.WallRight.SetActive(false);
                         f.WallTop.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
+    public void deltaMaze()
+    {
+        TriangleMazeGenerator generator = new TriangleMazeGenerator();
+        TriangleMazeGeneratorCell[,] maze = generator.GenerateMaze();
+        for (int x = 0; x < maze.GetLength(0); x++)
+        {
+            for (int y = 0; y < maze.GetLength(1) - x; y++)
+            {
+                TriangleCell c = Instantiate(TriangleCellPrefab, new Vector2(maze[x, y].X, maze[x, y].Y), Quaternion.identity).GetComponent<TriangleCell>();
+
+                c.WallBottom.SetActive(maze[x,y].WallBottom);
+                c.WallLeft.SetActive(maze[x, y].WallLeft);
+                c.WallRight.SetActive(maze[x, y].WallRight);
+
+                if (maze[x,y].isFinishCell)
+                {
+                    TriangleFinishCell f = Instantiate(TriangleFinishCellPrefab, new Vector2(maze[x, y].X, maze[x, y].Y), Quaternion.identity).GetComponent<TriangleFinishCell>();
+
+                    if (x == 0)
+                    {
+                        f.WallLeft.SetActive(true);
+
+                        f.WallBottom.SetActive(false);
+                        f.WallRight.SetActive(false);
+                    }
+                    else if (y == 0)
+                    {
+                        f.WallBottom.SetActive(true);
+
+                        f.WallLeft.SetActive(false);
+                        f.WallRight.SetActive(false);
+                    }
+                    else
+                    {
+                        f.WallRight.SetActive(true);
+
+                        f.WallLeft.SetActive(false);
+                        f.WallBottom.SetActive(false);
                     }
                 }
             }
