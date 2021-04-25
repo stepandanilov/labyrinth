@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6284552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -465,6 +465,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   widthFieldInput: {fileID: 1924257119}
   heightFieldInput: {fileID: 951247418}
+  lengthFieldInput: {fileID: 6284553}
+  dropdown: {fileID: 2087029160}
+  gammaSettings: {fileID: 1543696035}
+  deltaSettings: {fileID: 1548621885}
 --- !u!1 &167734016
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,7 +2508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1548621886
 Transform:
   m_ObjectHideFlags: 0
@@ -3753,22 +3757,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Delta
       m_Image: {fileID: 0}
-    - m_Text: More
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &2087029161
 MonoBehaviour:
