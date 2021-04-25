@@ -13,7 +13,15 @@ public class MazeSpawner : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        deltaMaze();
+        switch (Globals.mazeType)
+        {
+            case 1:
+                gammaMaze();
+                break;
+            case 2:
+                deltaMaze();
+                break;
+        }
     }
     public void gammaMaze()
     {

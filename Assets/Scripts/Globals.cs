@@ -7,5 +7,8 @@ public class Globals : MonoBehaviour
     public static int mazeWidth = 5;
     public static int mazeHeight = 5;
 
-    public static int triangleMazeLength = 7;
+    public static int triangleMazeLength = 15;
+
+    //change later
+    public static int mazeType = 1;
 }
