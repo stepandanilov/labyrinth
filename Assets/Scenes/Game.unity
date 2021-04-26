@@ -662,7 +662,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55ee06fc4605b8846af42da07a69d0a6, type: 3}
   m_Name: 
@@ -680,7 +680,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6132076, g: 0.44890738, b: 0.3037113, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -697,7 +697,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11.238964
+  orthographic size: 18.85889
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -721,7 +721,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.34, y: 9.68, z: -10}
+  m_LocalPosition: {x: 0.71, y: 0.18, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -971,6 +971,8 @@ MonoBehaviour:
   TriangleCellPrefab: {fileID: 6821614261282421906, guid: 93deadd254fbf5b4b98b7dc2e1597edb,
     type: 3}
   TriangleFinishCellPrefab: {fileID: 5230982447217816720, guid: 74443fe76497c624fab96f42779878b6,
+    type: 3}
+  ThetaCellPrefab: {fileID: 1802713159536389384, guid: f145b66f63e500d498fe464194d68a05,
     type: 3}
   Player: {fileID: 1361769361}
 --- !u!4 &1174860960

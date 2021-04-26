@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class MazeSpawner : MonoBehaviour
 {
+    //gamma maze
     public GameObject CellPrefab;
     public GameObject FinishCellPrefab;
+    //delta
     public GameObject TriangleCellPrefab;
     public GameObject TriangleFinishCellPrefab;
+    //theta
+    public GameObject ThetaCellPrefab;
 
     public Transform Player;
     // Start is called before the first frame update
     public void Start()
     {
-        switch (Globals.mazeType)
-        {
-            case 1:
-                gammaMaze();
-                break;
-            case 2:
-                deltaMaze();
-                break;
-        }
+        //switch (Globals.mazeType)
+        //{
+        //    case 1:
+        //        gammaMaze();
+        //        break;
+        //    case 2:
+        //        deltaMaze();
+        //        break;
+        //}
+        thetaMaze();
     }
     public void gammaMaze()
     {
@@ -122,6 +127,34 @@ public class MazeSpawner : MonoBehaviour
                         f.WallBottom.SetActive(false);
                     }
                 }
+            }
+        }
+    }
+    public void thetaMaze()
+    {
+        ThetaMazeGenerator generator = new ThetaMazeGenerator();
+        ThetaMazeCell[,] maze = generator.GenerateMaze();
+        
+        for (int x = 0; x < maze.GetLength(0); x++)
+        {
+            for (int y = 0; y < maze.GetLength(1); y++)
+            {
+                ThetaCell c = Instantiate(ThetaCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaCell>();
+                //adjust cell itself (rotation)
+                c.transform.Rotate(new Vector3(0, 0, 1) * maze[x, y].angle / Mathf.PI * 180);
+                //adjust circle walls (scale)
+                c.WallBottom.transform.localScale = new Vector3( transform.localScale.x * (float)(1.5) * (x + 1),
+                                                    transform.localScale.y * (float)(1.5) * (x + 1),
+                                                    transform.localScale.z);
+                //adjust inner walls to scale circle walls(scale)
+                c.WallRight.transform.localScale = new Vector3(c.transform.localScale.x,
+                                                    c.transform.localScale.y,
+                                                    c.transform.localScale.z);
+                //adjust position of inner walls (position)
+                c.WallRight.transform.localPosition = new Vector3((float)(1.5 * x), 0, 0);
+
+                c.WallBottom.SetActive(maze[x,y].WallBottom);
+                c.WallRight.SetActive(maze[x, y].WallRight);
             }
         }
     }
