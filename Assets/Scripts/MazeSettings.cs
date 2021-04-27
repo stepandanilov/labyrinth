@@ -58,7 +58,7 @@ public class MazeSettings : MonoBehaviour
             }
             Debug.Log("getinputs");
         }
-        if (dropdownText == "delta")
+        if (dropdownText == "delta" || dropdownText == "theta")
         {
             if (lengthFieldInput.text != "")
             {
@@ -78,7 +78,7 @@ public class MazeSettings : MonoBehaviour
             if (width <= 2) flag = false;
             if (height <= 2) flag = false;
         }
-        if (dropdownText == "delta")
+        if (dropdownText == "delta" || dropdownText == "theta")
         {
             if (length <= 2) flag = false;
         }
@@ -102,6 +102,12 @@ public class MazeSettings : MonoBehaviour
 
             Globals.mazeType = 2;
         }
+        if (dropdownText == "theta")
+        {
+            Globals.triangleMazeLength = length;
+
+            Globals.mazeType = 3;
+        }
     }
     public void DropdownItemSelected(Dropdown dropdown)
     {
@@ -114,7 +120,7 @@ public class MazeSettings : MonoBehaviour
             gammaSettings.SetActive(true);
             deltaSettings.SetActive(false);
         }
-        else if (dropdownText == "delta")
+        else if (dropdownText == "delta" || dropdownText == "theta")
         {
             deltaSettings.SetActive(true);
             gammaSettings.SetActive(false);

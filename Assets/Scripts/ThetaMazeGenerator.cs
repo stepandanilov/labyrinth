@@ -21,17 +21,18 @@ public class ThetaMazeGenerator
 
     public ThetaMazeCell[,] GenerateMaze()
     {
-        ThetaMazeCell[,] maze = new ThetaMazeCell[radius, 6];
+        int n = 5;
+        ThetaMazeCell[,] maze = new ThetaMazeCell[radius, radius + n];
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            for (int y = 0; y < maze.GetLength(1); y++)
+            for (int y = 0; y < x + n; y++)
             {
                 maze[x, y] = new ThetaMazeCell
                 {
                     indexX = x,
                     indexY = y,
                     r = (float)(x * 1.5),
-                    angle = y * Mathf.PI / 3
+                    angle = y * 2 * Mathf.PI / (Mathf.PI / ((float)180.0 / ( x + n )))
                 };
             }
         }
@@ -42,7 +43,7 @@ public class ThetaMazeGenerator
     }
     private void RemoveOuterWalls(ThetaMazeCell[,] maze)
     {
-        for (int y = 0; y < maze.GetLength(1); y++)
+        for (int y = 0; y < maze.GetLength(1) - 1; y++)
         {
             maze[maze.GetLength(0) - 1, y].WallRight = false;
         }
