@@ -19,19 +19,18 @@ public class MazeSpawner : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        //switch (Globals.mazeType)
-        //{
-        //    case 1:
-        //        gammaMaze();
-        //        break;
-        //    case 2:
-        //        deltaMaze();
-        //        break;
-        //    case 3:
-        //        thetaMaze();
-        //        break;
-        //}
-        thetaMaze();
+        switch (Globals.mazeType)
+        {
+            case 1:
+                gammaMaze();
+                break;
+            case 2:
+                deltaMaze();
+                break;
+            case 3:
+                thetaMaze();
+                break;
+        }
     }
     public void gammaMaze()
     {
@@ -149,7 +148,6 @@ public class MazeSpawner : MonoBehaviour
                 //adjust cell itself (rotation)
                 c.transform.Rotate(Vector3.forward, maze[x, y].angle);
                 //adjust circle walls (scale)
-                c.WallBottom.transform.Rotate(Vector3.forward, -3 * Mathf.PI / (Mathf.PI / ((float)180.0 / (x + n))));
                 c.WallBottom.transform.localScale = new Vector3(transform.localScale.x * (float)(1.5) * (x + 1),
                                                     transform.localScale.y * (float)(1.5) * (x + 1),
                                                     0);
@@ -182,8 +180,8 @@ public class MazeSpawner : MonoBehaviour
         float angle =((float)360.0 / (float)(x + n)) / (float)(lineRenderer.positionCount - 1);
         for (int i = 0; i < lineRenderer.positionCount; i++) 
         {
-            points[i] = new Vector3((Mathf.Sin(angle * Mathf.PI / (float)180.0 * i)),
-                                    (Mathf.Cos(angle * Mathf.PI / (float)180.0 * i)), 0);
+            points[i] = new Vector3((Mathf.Cos(angle * Mathf.PI / (float)180.0 * i)),
+                                    (Mathf.Sin(angle * Mathf.PI / (float)180.0 * i)), 0);
         }
         lineRenderer.SetPositions(points);
     }

@@ -38,11 +38,7 @@ public class ThetaMazeGenerator
                 };
             }
         }
-        for (int x = 0; x < maze.GetLength(0); x++)
-        {
-            maze[x, 0].WallBottom = false;
-        }
-        //RemoveWallsWithBacktracker(maze);
+        RemoveWallsWithBacktracker(maze);
         
         RemoveOuterWalls(maze);
 
