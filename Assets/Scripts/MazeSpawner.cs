@@ -19,18 +19,19 @@ public class MazeSpawner : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        switch (Globals.mazeType)
-        {
-            case 1:
-                gammaMaze();
-                break;
-            case 2:
-                deltaMaze();
-                break;
-            case 3:
-                thetaMaze();
-                break;
-        }
+        //switch (Globals.mazeType)
+        //{
+        //    case 1:
+        //        gammaMaze();
+        //        break;
+        //    case 2:
+        //        deltaMaze();
+        //        break;
+        //    case 3:
+        //        thetaMaze();
+        //        break;
+        //}
+        thetaMaze();
     }
     public void gammaMaze()
     {
@@ -138,22 +139,24 @@ public class MazeSpawner : MonoBehaviour
     {
         ThetaMazeGenerator generator = new ThetaMazeGenerator();
         ThetaMazeCell[,] maze = generator.GenerateMaze();
+        int n = Globals.numberOfThetaCells;
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            for (int y = 0; y < x + 5; y++)
+            for (int y = 0; y < x + n; y++)
             {
                 ThetaCell c = Instantiate(ThetaCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaCell>();
                 MakeThetaCellBottomWall(c.gameObject, x);
                 //adjust cell itself (rotation)
-                c.transform.Rotate(new Vector3(0, 0, 1) * maze[x, y].angle);
+                c.transform.Rotate(Vector3.forward, maze[x, y].angle);
                 //adjust circle walls (scale)
+                c.WallBottom.transform.Rotate(Vector3.forward, -3 * Mathf.PI / (Mathf.PI / ((float)180.0 / (x + n))));
                 c.WallBottom.transform.localScale = new Vector3(transform.localScale.x * (float)(1.5) * (x + 1),
                                                     transform.localScale.y * (float)(1.5) * (x + 1),
-                                                    transform.localScale.z);
+                                                    0);
                 //adjust inner walls to scale circle walls(scale)
                 c.WallRight.transform.localScale = new Vector3(c.transform.localScale.x,
                                                     c.transform.localScale.y,
-                                                    c.transform.localScale.z);
+                                                    0);
                 //adjust position of inner walls (position)
                 c.WallRight.transform.localPosition = new Vector3((float)(1.5 * x), 0, 0);
 
@@ -167,16 +170,17 @@ public class MazeSpawner : MonoBehaviour
         LineRenderer lineRenderer = thetaCell.transform.Find("WallBottom").gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = material;
         lineRenderer.widthMultiplier = 0.1f;
-        lineRenderer.positionCount = 5;
+        lineRenderer.positionCount = 8;
 
         lineRenderer.startColor = Color.white;
         lineRenderer.endColor = Color.white;
 
         lineRenderer.useWorldSpace = false;
-        var points = new Vector3[5];
+        var points = new Vector3[lineRenderer.positionCount];
 
-        float angle = 2 * ((float)180.0 / (x + 5)) / 4;
-        for (int i = 0; i < 5; i++) 
+        int n = Globals.numberOfThetaCells;
+        float angle =((float)360.0 / (float)(x + n)) / (float)(lineRenderer.positionCount - 1);
+        for (int i = 0; i < lineRenderer.positionCount; i++) 
         {
             points[i] = new Vector3((Mathf.Sin(angle * Mathf.PI / (float)180.0 * i)),
                                     (Mathf.Cos(angle * Mathf.PI / (float)180.0 * i)), 0);
