@@ -138,10 +138,9 @@ public class MazeSpawner : MonoBehaviour
     {
         ThetaMazeGenerator generator = new ThetaMazeGenerator();
         ThetaMazeCell[,] maze = generator.GenerateMaze();
-        int n = Globals.numberOfThetaCells;
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            for (int y = 0; y < x + n; y++)
+            for (int y = 0; y < Globals.getNumberOfCellsInRow(x); y++) 
             {
                 ThetaCell c = Instantiate(ThetaCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaCell>();
                 MakeThetaCellBottomWall(c.gameObject, x);
@@ -177,7 +176,7 @@ public class MazeSpawner : MonoBehaviour
         var points = new Vector3[lineRenderer.positionCount];
 
         int n = Globals.numberOfThetaCells;
-        float angle =((float)360.0 / (float)(x + n)) / (float)(lineRenderer.positionCount - 1);
+        float angle =((float)360.0 / Globals.getNumberOfCellsInRow(x)) / (float)(lineRenderer.positionCount - 1);
         for (int i = 0; i < lineRenderer.positionCount; i++) 
         {
             points[i] = new Vector3((Mathf.Cos(angle * Mathf.PI / (float)180.0 * i)),
