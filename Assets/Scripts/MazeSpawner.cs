@@ -183,5 +183,15 @@ public class MazeSpawner : MonoBehaviour
                                     (Mathf.Sin(angle * Mathf.PI / (float)180.0 * i)), 0);
         }
         lineRenderer.SetPositions(points);
+
+        EdgeCollider2D edgeCollider = thetaCell.transform.Find("WallBottom").gameObject.AddComponent<EdgeCollider2D>();
+
+        var colliderPoints = new Vector2[lineRenderer.positionCount];
+        for (int i = 0; i < lineRenderer.positionCount; i++)
+        {
+            colliderPoints[i].x = points[i].x;
+            colliderPoints[i].y = points[i].y;
+        } 
+        edgeCollider.points = colliderPoints;
     }
 }
