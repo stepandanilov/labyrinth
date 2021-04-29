@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovementScript : MonoBehaviour
 {
     public float speed = 1f;
+    public Rigidbody2D rigidBody;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,8 +15,8 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed, 0.0f);
+        Vector3 movement = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
 
-        transform.position += movement * Time.deltaTime; 
+        rigidBody.AddForce(movement * Time.deltaTime, ForceMode2D.Impulse);     
     }
 }

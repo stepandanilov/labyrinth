@@ -1104,6 +1104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  rigidBody: {fileID: 1361769363}
 --- !u!50 &1361769363
 Rigidbody2D:
   serializedVersion: 4
@@ -1118,7 +1119,7 @@ Rigidbody2D:
   m_UseAutoMass: 1
   m_Mass: 0.19634955
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

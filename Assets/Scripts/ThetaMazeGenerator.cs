@@ -40,10 +40,18 @@ public class ThetaMazeGenerator
         }
 
         RemoveWallsWithBacktracker(maze);
+
         RemoveInnerCircle(maze);
+
         RemoveOuterWalls(maze);
 
+        PlaceExit(maze);
+
         return maze;
+    }
+    private void PlaceExit(ThetaMazeCell[,] maze)
+    {
+        ThetaMazeCell furthest = maze[0, 0];
     }
     private void RemoveWallsWithBacktracker(ThetaMazeCell[,] maze)
     {
