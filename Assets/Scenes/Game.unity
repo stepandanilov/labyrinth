@@ -975,6 +975,8 @@ MonoBehaviour:
     type: 3}
   ThetaCellPrefab: {fileID: 1802713159536389384, guid: f145b66f63e500d498fe464194d68a05,
     type: 3}
+  ThetaFinishCellPrefab: {fileID: 6926710272682660929, guid: 5aecc7d3c112c604583b971f7b93c0c2,
+    type: 3}
   Player: {fileID: 1361769361}
 --- !u!4 &1174860960
 Transform:

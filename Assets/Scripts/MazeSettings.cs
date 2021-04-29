@@ -7,19 +7,22 @@ using TMPro;
 public class MazeSettings : MonoBehaviour
 {
     //delta settings
-    public TMP_InputField widthFieldInput;
-    public TMP_InputField heightFieldInput;
+    public TMP_InputField widthInput;
+    public TMP_InputField heightInput;
     //gamma settings
-    public TMP_InputField lengthFieldInput;
-
+    public TMP_InputField lengthInput;
+    //theta settings
+    public TMP_InputField radiusInput;
     public Dropdown dropdown;
 
     public GameObject gammaSettings;
     public GameObject deltaSettings;
+    public GameObject thetaSettings;
 
     int width;
     int height;
     int length;
+    int radius;
 
     string dropdownText = "gamma";
     private void Start()
@@ -39,18 +42,18 @@ public class MazeSettings : MonoBehaviour
     {
         if (dropdownText == "gamma")
         {
-            if (widthFieldInput.text != "")
+            if (widthInput.text != "")
             {
-                width = int.Parse(widthFieldInput.text);
+                width = int.Parse(widthInput.text);
             }
             else
             {
                 width = Globals.mazeWidth;
             }
 
-            if (heightFieldInput.text != "")
+            if (heightInput.text != "")
             {
-                height = int.Parse(heightFieldInput.text);
+                height = int.Parse(heightInput.text);
             }
             else
             {
@@ -58,15 +61,26 @@ public class MazeSettings : MonoBehaviour
             }
             Debug.Log("getinputs");
         }
-        if (dropdownText == "delta" || dropdownText == "theta")
+        if (dropdownText == "delta")
         {
-            if (lengthFieldInput.text != "")
+            if (lengthInput.text != "")
             {
-                length = int.Parse(lengthFieldInput.text);
+                length = int.Parse(lengthInput.text);
             }
             else
             {
                 length = Globals.triangleMazeLength;
+            }
+        }
+        if (dropdownText == "theta")
+        {
+            if (radiusInput.text != "")
+            {
+                radius = int.Parse(radiusInput.text);
+            }
+            else
+            {
+                radius = Globals.triangleMazeLength;
             }
         }
     }
@@ -78,9 +92,13 @@ public class MazeSettings : MonoBehaviour
             if (width <= 2) flag = false;
             if (height <= 2) flag = false;
         }
-        if (dropdownText == "delta" || dropdownText == "theta")
+        if (dropdownText == "delta")
         {
             if (length <= 2) flag = false;
+        }
+        if (dropdownText == "theta")
+        {
+            if (radius <= 4) flag = false;
         }
         return flag;
     }
@@ -104,7 +122,7 @@ public class MazeSettings : MonoBehaviour
         }
         if (dropdownText == "theta")
         {
-            Globals.triangleMazeLength = length;
+            Globals.thetaMazeRadius = radius;
 
             Globals.mazeType = 3;
         }
@@ -114,16 +132,24 @@ public class MazeSettings : MonoBehaviour
         int index = dropdown.value;
         dropdownText = dropdown.options[index].text;
         dropdownText = dropdownText.ToLower();
-        // may change later when more types are added
-        if (dropdownText == "gamma")
+
+        switch (dropdownText)
         {
-            gammaSettings.SetActive(true);
-            deltaSettings.SetActive(false);
+            case "gamma":
+                gammaSettings.SetActive(true);
+                deltaSettings.SetActive(false);
+                thetaSettings.SetActive(false);
+                break;
+            case "delta":
+                deltaSettings.SetActive(true);
+                gammaSettings.SetActive(false);
+                thetaSettings.SetActive(false);
+                break;
+            case "theta":
+                thetaSettings.SetActive(true);
+                gammaSettings.SetActive(false);
+                deltaSettings.SetActive(false);
+                break;
         }
-        else if (dropdownText == "delta" || dropdownText == "theta")
-        {
-            deltaSettings.SetActive(true);
-            gammaSettings.SetActive(false);
-        }    
     }
 }

@@ -14,6 +14,7 @@ public class MazeSpawner : MonoBehaviour
     public GameObject TriangleFinishCellPrefab;
     //theta
     public GameObject ThetaCellPrefab;
+    public GameObject ThetaFinishCellPrefab;
 
     public Transform Player;
     // Start is called before the first frame update
@@ -143,7 +144,7 @@ public class MazeSpawner : MonoBehaviour
             for (int y = 0; y < Globals.getNumberOfCellsInRow(x); y++) 
             {
                 ThetaCell c = Instantiate(ThetaCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaCell>();
-                MakeThetaCellBottomWall(c.gameObject, x);
+                MakeThetaCellBottomWall(c.gameObject, x, "WallBottom");
                 //adjust cell itself (rotation)
                 c.transform.Rotate(Vector3.forward, maze[x, y].angle);
                 //adjust circle walls (scale)
@@ -159,12 +160,29 @@ public class MazeSpawner : MonoBehaviour
 
                 c.WallBottom.SetActive(maze[x, y].WallBottom);
                 c.WallRight.SetActive(maze[x, y].WallRight);
+
+                if (maze[x,y].isFinishCell)
+                {
+                    ThetaFinishCell f = Instantiate(ThetaFinishCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaFinishCell>();
+                    //make and change bottom wall
+                    MakeThetaCellBottomWall(f.gameObject, x, "FinishWallBottom");
+                    LineRenderer lineRenderer = f.gameObject.transform.Find("FinishWallBottom").gameObject.GetComponent<LineRenderer>();
+                    lineRenderer.startColor = Color.green;
+                    lineRenderer.endColor = Color.green;
+                    //adjusting
+                    f.transform.Rotate(Vector3.forward, maze[x, y].angle);
+                    f.WallBottom.transform.localScale = new Vector3(transform.localScale.x * (float)(1.5) * (x + 1),
+                                                    transform.localScale.y * (float)(1.5) * (x + 1),
+                                                    0);
+                    f.WallBottom.SetActive(true);
+                }
             }
         }
     }
-    public void MakeThetaCellBottomWall(GameObject thetaCell, int x)
+    public void MakeThetaCellBottomWall(GameObject thetaCell, int x, string childName)
     {
-        LineRenderer lineRenderer = thetaCell.transform.Find("WallBottom").gameObject.AddComponent<LineRenderer>();
+        //adding linerenderer
+        LineRenderer lineRenderer = thetaCell.transform.Find(childName).gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = material;
         lineRenderer.widthMultiplier = 0.1f;
         lineRenderer.positionCount = 8;
@@ -183,8 +201,8 @@ public class MazeSpawner : MonoBehaviour
                                     (Mathf.Sin(angle * Mathf.PI / (float)180.0 * i)), 0);
         }
         lineRenderer.SetPositions(points);
-
-        EdgeCollider2D edgeCollider = thetaCell.transform.Find("WallBottom").gameObject.AddComponent<EdgeCollider2D>();
+        //adding edgecollider
+        EdgeCollider2D edgeCollider = thetaCell.transform.Find(childName).gameObject.AddComponent<EdgeCollider2D>();
 
         var colliderPoints = new Vector2[lineRenderer.positionCount];
         for (int i = 0; i < lineRenderer.positionCount; i++)

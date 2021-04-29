@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Globals : MonoBehaviour
 {
+    //gamma
     public static int mazeWidth = 5;
     public static int mazeHeight = 5;
-
-    public static int triangleMazeLength = 13;
-
+    //delta
+    public static int triangleMazeLength = 7;
+    //theta
+    public static int thetaMazeRadius = 7;
+    public static int numberOfThetaCells = 16;
     //change later
     public static int mazeType = 1;
 
-    public static int numberOfThetaCells = 16;
 
     public static int getNumberOfCellsInRow(int x)
     {
