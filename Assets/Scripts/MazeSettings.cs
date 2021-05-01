@@ -59,7 +59,6 @@ public class MazeSettings : MonoBehaviour
             {
                 height = Globals.mazeHeight;
             }
-            Debug.Log("getinputs");
         }
         if (dropdownText == "delta")
         {
@@ -111,8 +110,6 @@ public class MazeSettings : MonoBehaviour
             Globals.mazeWidth = width + 1;
 
             Globals.mazeType = 1;
-
-            Debug.Log("globalinput");
         }
         if (dropdownText == "delta")
         {

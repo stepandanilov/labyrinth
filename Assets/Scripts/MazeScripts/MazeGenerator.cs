@@ -15,7 +15,7 @@ public class MazeGeneratorCell
     public bool WallTop = false;
 
     public bool Visited = false;
-    public int DistanceFromStart;
+    public int DistanceFromStart = -1;
 
     public bool IsFinishCell= false;
 }
@@ -44,7 +44,8 @@ public class MazeGenerator
             maze[Width - 1, y].WallBottom = false;
         }
 
-        RemoveWallsWithBacktracker(maze);
+        //RemoveWallsWithBacktracker(maze);
+        BinaryTreeAlgorithm(maze);
 
         PlaceMazeExit(maze);
 
@@ -86,6 +87,54 @@ public class MazeGenerator
 
         } while (stack.Count>0);
     }
+    private void BinaryTreeAlgorithm(MazeGeneratorCell[,] maze)
+    {
+        for (int x = 0; x < maze.GetLength(0) - 1; x++)
+        {
+            for (int y = 0; y < maze.GetLength(1) - 1; y++)
+            {
+                if (x > 0 && y > 0)
+                {
+                    int random = UnityEngine.Random.Range(1, 3);
+                    if (random == 1)
+                    {
+                        maze[x, y].WallLeft = false;
+                    }
+                    else
+                    {
+                        maze[x, y].WallBottom = false;
+                    }
+                }
+                else if (x > 0 && y == 0)
+                {
+                    maze[x, y].WallLeft = false;
+                }
+                else if (x == 0 && y > 0)
+                {
+                    maze[x, y].WallBottom = false;
+                }
+            }
+        }
+        maze[0, 0].DistanceFromStart = 0;
+
+        List<MazeGeneratorCell> list = new List<MazeGeneratorCell>();
+
+        for (int x = 0; x < maze.GetLength(0) - 1; x++)
+        {
+            for (int y = 0; y < maze.GetLength(1) - 1; y++)
+            {
+                if (x > 0 && maze[x, y].WallLeft == false) list.Add(maze[x - 1, y]);
+                if (y > 0 && maze[x, y].WallBottom == false) list.Add(maze[x, y - 1]);
+                
+                foreach (MazeGeneratorCell cell in list)
+                {
+                    if (cell.DistanceFromStart < maze[x, y].DistanceFromStart || maze[x, y].DistanceFromStart == -1)
+                        maze[x, y].DistanceFromStart = cell.DistanceFromStart + 1;
+                }
+                list.Clear();
+            }
+        }
+    }
     
     private void RemoveWall(MazeGeneratorCell a, MazeGeneratorCell b)
     {
@@ -105,7 +154,7 @@ public class MazeGenerator
     {
         //finding furthest cell
         MazeGeneratorCell furthest = maze[0, 0];
-        
+
         for (int x = 0; x < maze.GetLength(0); x++)
         {
             if (maze[x, Height - 2].DistanceFromStart > furthest.DistanceFromStart) furthest = maze[x, Height - 2];
