@@ -1105,7 +1105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8a45ae5feb48a4596006c88421cfbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
   rigidBody: {fileID: 1361769363}
 --- !u!50 &1361769363
 Rigidbody2D:
@@ -1118,8 +1117,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 0.19634955
+  m_UseAutoMass: 0
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
