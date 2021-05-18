@@ -13,7 +13,7 @@ public class MazeSettings : MonoBehaviour
     public TMP_InputField lengthInput;
     //theta settings
     public TMP_InputField radiusInput;
-    public Dropdown dropdown;
+    public TMP_Dropdown dropdown;
 
     public GameObject gammaSettings;
     public GameObject deltaSettings;
@@ -27,7 +27,7 @@ public class MazeSettings : MonoBehaviour
     string dropdownText = "gamma";
     private void Start()
     {
-        dropdown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropdown); });
+
     }
     public void StartGame()
     {
@@ -124,11 +124,10 @@ public class MazeSettings : MonoBehaviour
             Globals.mazeType = 3;
         }
     }
-    public void DropdownItemSelected(Dropdown dropdown)
+    public void DropdownItemSelected(TMP_Dropdown dropdown)
     {
         int index = dropdown.value;
-        dropdownText = dropdown.options[index].text;
-        dropdownText = dropdownText.ToLower();
+        dropdownText = dropdown.options[index].text.ToLower();
 
         switch (dropdownText)
         {
