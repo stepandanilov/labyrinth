@@ -5,7 +5,7 @@ using UnityEngine;
 public class GlowingTitle : MonoBehaviour
 {
     public TMPro.TMP_Text text;
-    public float glowChangeSpeed = 0.01f;
+    public float glowChangeSpeed = 0.7f;
     
     private float glowPower = 0.5f;
     private bool goingUp = true;
