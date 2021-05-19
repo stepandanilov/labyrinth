@@ -44,8 +44,8 @@ public class MazeGenerator
             maze[Width - 1, y].WallBottom = false;
         }
 
-        //RemoveWallsWithBacktracker(maze);
-        BinaryTreeAlgorithm(maze);
+        RemoveWallsWithBacktracker(maze);
+        //BinaryTreeAlgorithm(maze);
 
         PlaceMazeExit(maze);
 

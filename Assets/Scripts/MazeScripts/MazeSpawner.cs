@@ -5,6 +5,7 @@ using UnityEngine;
 public class MazeSpawner : MonoBehaviour
 {
     public Material material;
+    public Material finishMaterial;
 
     //gamma maze
     public GameObject CellPrefab;
@@ -169,6 +170,8 @@ public class MazeSpawner : MonoBehaviour
                     LineRenderer lineRenderer = f.gameObject.transform.Find("FinishWallBottom").gameObject.GetComponent<LineRenderer>();
                     lineRenderer.startColor = Color.green;
                     lineRenderer.endColor = Color.green;
+
+                    lineRenderer.material = finishMaterial;
                     //adjusting
                     f.transform.Rotate(Vector3.forward, maze[x, y].angle);
                     f.WallBottom.transform.localScale = new Vector3(transform.localScale.x * (float)(1.5) * (x + 1),
@@ -183,12 +186,12 @@ public class MazeSpawner : MonoBehaviour
     {
         //adding linerenderer
         LineRenderer lineRenderer = thetaCell.transform.Find(childName).gameObject.AddComponent<LineRenderer>();
-        lineRenderer.material = material;
         lineRenderer.widthMultiplier = 0.1f;
         lineRenderer.positionCount = 8;
 
         lineRenderer.startColor = Color.white;
         lineRenderer.endColor = Color.white;
+        lineRenderer.material = material;
 
         lineRenderer.useWorldSpace = false;
         var points = new Vector3[lineRenderer.positionCount];
