@@ -16,9 +16,5 @@ public class MovementScript : MonoBehaviour
     void Update()
     {
         rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
-        //rigidBody.AddForce(movement);
-        
-        //Vector3 movement = new Vector3(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed, 0.0f);
-        //transform.position += movement * Time.deltaTime;
     }
 }
