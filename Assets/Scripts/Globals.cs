@@ -13,8 +13,7 @@ public class Globals : MonoBehaviour
     public static int thetaMazeRadius = 7;
     public static int numberOfThetaCells = 16;
     //change later
-    public static int mazeType = 1;
-
+    public static int mazeType = 2;
 
     public static int getNumberOfCellsInRow(int x)
     {

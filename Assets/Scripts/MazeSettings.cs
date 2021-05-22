@@ -25,10 +25,7 @@ public class MazeSettings : MonoBehaviour
     int radius;
 
     string dropdownText = "gamma";
-    private void Start()
-    {
 
-    }
     public void StartGame()
     {
         getInputs();

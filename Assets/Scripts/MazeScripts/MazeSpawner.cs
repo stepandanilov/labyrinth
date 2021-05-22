@@ -99,7 +99,7 @@ public class MazeSpawner : MonoBehaviour
         TriangleMazeGeneratorCell[,] maze = generator.GenerateMaze();
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            for (int y = 0; y < maze.GetLength(1) - x; y++)
+            for (int y = 0; y < maze.GetLength(0) * 2 - x * 2 - 1; y++)
             {
                 TriangleCell c = Instantiate(TriangleCellPrefab, new Vector2(maze[x, y].X, maze[x, y].Y), Quaternion.identity).GetComponent<TriangleCell>();
 
@@ -107,10 +107,11 @@ public class MazeSpawner : MonoBehaviour
                 c.WallLeft.SetActive(maze[x, y].WallLeft);
                 c.WallRight.SetActive(maze[x, y].WallRight);
 
+                if (y % 2 == 1) c.transform.Rotate(Vector3.forward, 180);
+
                 if (maze[x,y].isFinishCell)
                 {
                     TriangleFinishCell f = Instantiate(TriangleFinishCellPrefab, new Vector2(maze[x, y].X, maze[x, y].Y), Quaternion.identity).GetComponent<TriangleFinishCell>();
-
                     if (x == 0)
                     {
                         f.WallLeft.SetActive(true);
@@ -213,6 +214,7 @@ public class MazeSpawner : MonoBehaviour
             colliderPoints[i].x = points[i].x;
             colliderPoints[i].y = points[i].y;
         } 
+
         edgeCollider.points = colliderPoints;
     }
 }
