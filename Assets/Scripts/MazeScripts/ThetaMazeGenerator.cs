@@ -23,6 +23,8 @@ public class ThetaMazeGenerator
 {
     public int radius = Globals.thetaMazeRadius;
 
+    public int startCell;
+
     public ThetaMazeCell[,] GenerateMaze()
     {
         ThetaMazeCell[,] maze = new ThetaMazeCell[radius, Globals.getNumberOfCellsInRow(radius)];
@@ -40,9 +42,9 @@ public class ThetaMazeGenerator
             }
         }
 
-        RemoveWallsWithBacktracker(maze);
-
         RemoveInnerCircle(maze);
+
+        RemoveWallsWithBacktracker(maze);
 
         RemoveOuterWalls(maze);
 
@@ -52,20 +54,31 @@ public class ThetaMazeGenerator
     }
     private void PlaceExit(ThetaMazeCell[,] maze)
     {
-        ThetaMazeCell furthest = maze[0, 0];
-        for (int y = 0; y < Globals.getNumberOfCellsInRow(radius - 1); y++)
+        ThetaMazeCell furthest = maze[radius - 2, 0];
+        for (int y = 0; y < Globals.getNumberOfCellsInRow(radius - 2); y++)
         {
             if (maze[radius - 2, y].DistanceFromStart > furthest.DistanceFromStart)
-                furthest = maze[radius - 1, y];
+                furthest = maze[radius - 2, y];
         }
-        furthest.isFinishCell = true;
-        furthest.WallBottom = false;
+        int x0 = furthest.indexX;
+        int y0 = furthest.indexY;
+        if (Globals.getNumberOfCellsInRow(x0) == Globals.getNumberOfCellsInRow(x0 + 1))
+        {
+            maze[x0 + 1, y0].isFinishCell = true;
+            maze[x0 + 1, y0].WallBottom = false;
+        }
+        else
+        {
+            maze[x0 + 1, y0 * 2].isFinishCell = true;
+            maze[x0 + 1, y0 * 2].WallBottom = false;
+        }
     }
     private void RemoveWallsWithBacktracker(ThetaMazeCell[,] maze)
     {
-        ThetaMazeCell current = maze[0, 0];
+        ThetaMazeCell current = maze[0, startCell];
         current.Visited = true;
         current.DistanceFromStart = 0;
+        Debug.Log("startCell=" + startCell);
 
         Stack<ThetaMazeCell> stack = new Stack<ThetaMazeCell>();
         do
@@ -118,7 +131,7 @@ public class ThetaMazeGenerator
         }
         //same circle
         neighbours.Add(maze[x, (y + 1) % numberOfCells]);
-        if (y != 0)
+        if (y > 0)
         {
             neighbours.Add(maze[x, y - 1]);
         }
@@ -145,7 +158,6 @@ public class ThetaMazeGenerator
     {
         for (int y = 0; y < Globals.getNumberOfCellsInRow(radius - 1); y++)
         {
-            Debug.Log("(" + maze.GetLength(0) + ";" + y + ")");
             maze[radius - 1, y].WallRight = false;
         }
     }
@@ -161,7 +173,8 @@ public class ThetaMazeGenerator
         }
         if (a.indexX == b.indexX)
         {
-            if (a.indexY != 0 && b.indexY != Globals.getNumberOfCellsInRow(radius - 1))
+            if (!(a.indexY == 0 && b.indexY == Globals.getNumberOfCellsInRow(b.indexX) - 1) 
+                && !(b.indexY == 0 && a.indexY == Globals.getNumberOfCellsInRow(a.indexX) - 1))
             {
                 if (a.indexY > b.indexY)
                 {
@@ -172,18 +185,20 @@ public class ThetaMazeGenerator
                     b.WallRight = false;
                 }
             }
-            else
+            else if (a.indexY == 0)
             {
                 a.WallRight = false;
+            }
+            else if (b.indexY == 0)
+            {
+                b.WallRight = false;
             }
         }
     }
     private void RemoveInnerCircle(ThetaMazeCell[,] maze)
     {
-        int x = 0;
-        int n = UnityEngine.Random.Range(0, Globals.getNumberOfCellsInRow(x) - 1);
+        startCell = UnityEngine.Random.Range(0, Globals.getNumberOfCellsInRow(0) - 1);
         
-        maze[0, n].WallRight = false;
-        maze[0, n].WallBottom = false;
+        maze[0, startCell].WallBottom = false;
     }
 }

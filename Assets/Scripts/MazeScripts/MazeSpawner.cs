@@ -147,6 +147,11 @@ public class MazeSpawner : MonoBehaviour
             {
                 ThetaCell c = Instantiate(ThetaCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaCell>();
                 MakeThetaCellBottomWall(c.gameObject, x, "WallBottom");
+
+                c.x = x;
+                c.y = y;
+                c.distanceFromStart = maze[x, y].DistanceFromStart;
+                c.visited = maze[x, y].Visited;
                 //adjust cell itself (rotation)
                 c.transform.Rotate(Vector3.forward, maze[x, y].angle);
                 //adjust circle walls (scale)
