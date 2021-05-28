@@ -19,15 +19,21 @@ public class MazeSettings : MonoBehaviour
     public GameObject deltaSettings;
     public GameObject thetaSettings;
 
-    int width;
-    int height;
-    int length;
-    int radius;
+    public JsonHandler.DataCollection data;
 
     string dropdownText = "gamma";
 
     public void StartGame()
     {
+        JsonHandler.getInstance().LoadField();
+        data = new JsonHandler.DataCollection 
+        {
+            type = PlayerPrefs.GetInt("type"),
+            gammaHeight = PlayerPrefs.GetInt("height"),
+            gammaWidth = PlayerPrefs.GetInt("width"),
+            deltaLength = PlayerPrefs.GetInt("length"),
+            thetaRadius = PlayerPrefs.GetInt("radius")
+        };
         getInputs();
         if (inputsAreCorrect())
         {
@@ -45,43 +51,30 @@ public class MazeSettings : MonoBehaviour
         {
             if (widthInput.text != "")
             {
-                width = int.Parse(widthInput.text);
-            }
-            else
-            {
-                width = Globals.mazeWidth;
+                data.gammaWidth = int.Parse(widthInput.text);
             }
 
             if (heightInput.text != "")
             {
-                height = int.Parse(heightInput.text);
+                data.gammaHeight = int.Parse(heightInput.text);
             }
-            else
-            {
-                height = Globals.mazeHeight;
-            }
+            data.type = 1;
         }
         if (dropdownText == "delta")
         {
             if (lengthInput.text != "")
             {
-                length = int.Parse(lengthInput.text);
+                data.deltaLength = int.Parse(lengthInput.text);
             }
-            else
-            {
-                length = Globals.triangleMazeLength;
-            }
+            data.type = 2;
         }
         if (dropdownText == "theta")
         {
             if (radiusInput.text != "")
             {
-                radius = int.Parse(radiusInput.text);
+                data.thetaRadius = int.Parse(radiusInput.text);
             }
-            else
-            {
-                radius = Globals.triangleMazeLength;
-            }
+            data.type = 3;
         }
     }
     public bool inputsAreCorrect()
@@ -89,41 +82,26 @@ public class MazeSettings : MonoBehaviour
         bool flag = true;
         if (dropdownText == "gamma")
         {
-            if (width <= 2) flag = false;
-            if (height <= 2) flag = false;
+            if (data.gammaWidth <= 1) flag = false;
+            if (data.gammaHeight <= 1) flag = false;
         }
         if (dropdownText == "delta")
         {
-            if (length <= 2) flag = false;
+            if (data.deltaLength <= 3) flag = false;
         }
         if (dropdownText == "theta")
         {
-            if (radius <= 4) flag = false;
+            if (data.thetaRadius <= 0) flag = false;
         }
         return flag;
     }
     public void setGlobalVariables()
     {
-        // +1 because of invisible cells 
-        if (dropdownText == "gamma")
-        {
-            Globals.mazeHeight = height + 1;
-            Globals.mazeWidth = width + 1;
-
-            Globals.mazeType = 1;
-        }
-        if (dropdownText == "delta")
-        {
-            Globals.triangleMazeLength = length;
-
-            Globals.mazeType = 2;
-        }
-        if (dropdownText == "theta")
-        {
-            Globals.thetaMazeRadius = radius;
-
-            Globals.mazeType = 3;
-        }
+        PlayerPrefs.SetInt("type", data.type);
+        PlayerPrefs.SetInt("height", data.gammaHeight);
+        PlayerPrefs.SetInt("width", data.gammaWidth);
+        PlayerPrefs.SetInt("length", data.deltaLength);
+        PlayerPrefs.SetInt("radius", data.thetaRadius);
     }
     public void DropdownItemSelected(TMP_Dropdown dropdown)
     {

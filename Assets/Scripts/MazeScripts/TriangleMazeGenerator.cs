@@ -21,7 +21,7 @@ public class TriangleMazeGeneratorCell
 }
 public class TriangleMazeGenerator
 {
-    public int mazeLength = Globals.triangleMazeLength;
+    public int mazeLength = PlayerPrefs.GetInt("length");
 
     public TriangleMazeGeneratorCell[,] GenerateMaze()
     {

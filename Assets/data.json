@@ -1,0 +1,7 @@
+{
+	"type" : 1,
+	"gammaWidth": 5,
+	"gammaHeight": 5,
+	"deltaLength": 6,
+	"thetaRadius" : 5
+}

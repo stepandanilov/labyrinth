@@ -21,23 +21,23 @@ public class ThetaMazeCell
 }
 public class ThetaMazeGenerator
 {
-    public int radius = Globals.thetaMazeRadius;
+    public int radius = PlayerPrefs.GetInt("radius") + 1;
 
     public int startCell;
 
     public ThetaMazeCell[,] GenerateMaze()
     {
-        ThetaMazeCell[,] maze = new ThetaMazeCell[radius, Globals.getNumberOfCellsInRow(radius)];
+        ThetaMazeCell[,] maze = new ThetaMazeCell[radius, GameManager.getInstance().getNumberOfCellsInRow(radius)];
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            for (int y = 0; y < Globals.getNumberOfCellsInRow(x); y++)
+            for (int y = 0; y < GameManager.getInstance().getNumberOfCellsInRow(x); y++)
             {
                 maze[x, y] = new ThetaMazeCell
                 {
                     indexX = x,
                     indexY = y,
                     r = (float)(x * 1.5),
-                    angle = y * 2 * Mathf.PI / (Mathf.PI / ((float)180.0 / Globals.getNumberOfCellsInRow(x)))
+                    angle = y * 2 * Mathf.PI / (Mathf.PI / ((float)180.0 / GameManager.getInstance().getNumberOfCellsInRow(x)))
                 };
             }
         }
@@ -55,14 +55,14 @@ public class ThetaMazeGenerator
     private void PlaceExit(ThetaMazeCell[,] maze)
     {
         ThetaMazeCell furthest = maze[radius - 2, 0];
-        for (int y = 0; y < Globals.getNumberOfCellsInRow(radius - 2); y++)
+        for (int y = 0; y < GameManager.getInstance().getNumberOfCellsInRow(radius - 2); y++)
         {
             if (maze[radius - 2, y].DistanceFromStart > furthest.DistanceFromStart)
                 furthest = maze[radius - 2, y];
         }
         int x0 = furthest.indexX;
         int y0 = furthest.indexY;
-        if (Globals.getNumberOfCellsInRow(x0) == Globals.getNumberOfCellsInRow(x0 + 1))
+        if (GameManager.getInstance().getNumberOfCellsInRow(x0) == GameManager.getInstance().getNumberOfCellsInRow(x0 + 1))
         {
             maze[x0 + 1, y0].isFinishCell = true;
             maze[x0 + 1, y0].WallBottom = false;
@@ -78,7 +78,6 @@ public class ThetaMazeGenerator
         ThetaMazeCell current = maze[0, startCell];
         current.Visited = true;
         current.DistanceFromStart = 0;
-        Debug.Log("startCell=" + startCell);
 
         Stack<ThetaMazeCell> stack = new Stack<ThetaMazeCell>();
         do
@@ -116,11 +115,11 @@ public class ThetaMazeGenerator
     {
         List<ThetaMazeCell> neighbours = new List<ThetaMazeCell>();
 
-        int numberOfCells = Globals.getNumberOfCellsInRow(x);
+        int numberOfCells = GameManager.getInstance().getNumberOfCellsInRow(x);
         //circle below
         if (x > 0)
         {
-            if (numberOfCells == Globals.getNumberOfCellsInRow(x - 1))
+            if (numberOfCells == GameManager.getInstance().getNumberOfCellsInRow(x - 1))
             {
                 neighbours.Add(maze[x - 1, y]);
             }
@@ -140,9 +139,9 @@ public class ThetaMazeGenerator
             neighbours.Add(maze[x, numberOfCells - 1]);
         }
         //circle above
-        if (x < Globals.thetaMazeRadius - 2)
+        if (x < radius - 2)
         {
-            if (numberOfCells == Globals.getNumberOfCellsInRow(x + 1))
+            if (numberOfCells == GameManager.getInstance().getNumberOfCellsInRow(x + 1))
             {
                 neighbours.Add(maze[x + 1, y]);
             }
@@ -156,7 +155,7 @@ public class ThetaMazeGenerator
     }
     private void RemoveOuterWalls(ThetaMazeCell[,] maze)
     {
-        for (int y = 0; y < Globals.getNumberOfCellsInRow(radius - 1); y++)
+        for (int y = 0; y < GameManager.getInstance().getNumberOfCellsInRow(radius - 1); y++)
         {
             maze[radius - 1, y].WallRight = false;
         }
@@ -173,8 +172,8 @@ public class ThetaMazeGenerator
         }
         if (a.indexX == b.indexX)
         {
-            if (!(a.indexY == 0 && b.indexY == Globals.getNumberOfCellsInRow(b.indexX) - 1) 
-                && !(b.indexY == 0 && a.indexY == Globals.getNumberOfCellsInRow(a.indexX) - 1))
+            if (!(a.indexY == 0 && b.indexY == GameManager.getInstance().getNumberOfCellsInRow(b.indexX) - 1) 
+                && !(b.indexY == 0 && a.indexY == GameManager.getInstance().getNumberOfCellsInRow(a.indexX) - 1))
             {
                 if (a.indexY > b.indexY)
                 {
@@ -197,7 +196,7 @@ public class ThetaMazeGenerator
     }
     private void RemoveInnerCircle(ThetaMazeCell[,] maze)
     {
-        startCell = UnityEngine.Random.Range(0, Globals.getNumberOfCellsInRow(0) - 1);
+        startCell = UnityEngine.Random.Range(0, GameManager.getInstance().getNumberOfCellsInRow(0) - 1);
         
         maze[0, startCell].WallBottom = false;
     }

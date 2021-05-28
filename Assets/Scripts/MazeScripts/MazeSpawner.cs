@@ -21,7 +21,7 @@ public class MazeSpawner : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        switch (Globals.mazeType)
+        switch (PlayerPrefs.GetInt("type"))
         {
             case 1:
                 gammaMaze();
@@ -143,7 +143,7 @@ public class MazeSpawner : MonoBehaviour
         ThetaMazeCell[,] maze = generator.GenerateMaze();
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            for (int y = 0; y < Globals.getNumberOfCellsInRow(x); y++) 
+            for (int y = 0; y < GameManager.getInstance().getNumberOfCellsInRow(x) ; y++) 
             {
                 ThetaCell c = Instantiate(ThetaCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaCell>();
                 MakeThetaCellBottomWall(c.gameObject, x, "WallBottom");
@@ -202,8 +202,9 @@ public class MazeSpawner : MonoBehaviour
         lineRenderer.useWorldSpace = false;
         var points = new Vector3[lineRenderer.positionCount];
 
-        int n = Globals.numberOfThetaCells;
-        float angle =((float)360.0 / Globals.getNumberOfCellsInRow(x)) / (float)(lineRenderer.positionCount - 1);
+        //change later to number of theta cells
+        int n = 4;
+        float angle =((float)360.0 / GameManager.getInstance().getNumberOfCellsInRow(x)) / (float)(lineRenderer.positionCount - 1);
         for (int i = 0; i < lineRenderer.positionCount; i++) 
         {
             points[i] = new Vector3((Mathf.Cos(angle * Mathf.PI / (float)180.0 * i)),
