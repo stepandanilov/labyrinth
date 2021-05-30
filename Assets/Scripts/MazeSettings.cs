@@ -15,6 +15,11 @@ public class MazeSettings : MonoBehaviour
     public TMP_InputField radiusInput;
     public TMP_Dropdown dropdown;
 
+    public TMP_Text widthPlaceholder;
+    public TMP_Text heightPlaceholder;
+    public TMP_Text lengthPlaceholder;
+    public TMP_Text radiusPlaceholder;
+
     public GameObject gammaSettings;
     public GameObject deltaSettings;
     public GameObject thetaSettings;
@@ -23,10 +28,10 @@ public class MazeSettings : MonoBehaviour
 
     string dropdownText = "gamma";
 
-    public void StartGame()
+    private void Start()
     {
         JsonHandler.getInstance().LoadField();
-        data = new JsonHandler.DataCollection 
+        data = new JsonHandler.DataCollection
         {
             type = PlayerPrefs.GetInt("type"),
             gammaHeight = PlayerPrefs.GetInt("height"),
@@ -34,6 +39,13 @@ public class MazeSettings : MonoBehaviour
             deltaLength = PlayerPrefs.GetInt("length"),
             thetaRadius = PlayerPrefs.GetInt("radius")
         };
+        widthPlaceholder.text = data.gammaWidth.ToString();
+        heightPlaceholder.text = data.gammaHeight.ToString();
+        lengthPlaceholder.text = data.deltaLength.ToString();
+        radiusPlaceholder.text = data.thetaRadius.ToString();
+    }
+    public void StartGame()
+    {
         getInputs();
         if (inputsAreCorrect())
         {

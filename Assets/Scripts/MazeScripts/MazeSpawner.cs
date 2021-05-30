@@ -38,6 +38,7 @@ public class MazeSpawner : MonoBehaviour
     {
         MazeGenerator generator = new MazeGenerator();
         MazeGeneratorCell[,] maze = generator.GenerateMaze();
+        GlobalVars.maze = maze;
         for (int x = 0; x < maze.GetLength(0); x++)
         {
             for (int y = 0; y < maze.GetLength(1); y++)
@@ -202,8 +203,7 @@ public class MazeSpawner : MonoBehaviour
         lineRenderer.useWorldSpace = false;
         var points = new Vector3[lineRenderer.positionCount];
 
-        //change later to number of theta cells
-        int n = 4;
+        int n = PlayerPrefs.GetInt("cellNumber");
         float angle =((float)360.0 / GameManager.getInstance().getNumberOfCellsInRow(x)) / (float)(lineRenderer.positionCount - 1);
         for (int i = 0; i < lineRenderer.positionCount; i++) 
         {

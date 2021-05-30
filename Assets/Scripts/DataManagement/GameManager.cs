@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //data
-    public int type;
-    //gamma
-    public int width;
-    public int heigth;
-    //delta
-    public int length;
-    //theta
-    public int radius;
+    private static GameManager instance = null;
 
-    private static GameManager instance;
+    public List<int> path = new List<int>();
+    //gamma
+    private static int width = PlayerPrefs.GetInt("width") + 1;
+    private static int height = PlayerPrefs.GetInt("height") + 1;
+    public MazeGeneratorCell[,] maze;
+    private int wallRightPosition = 3;
+    private int x = 0;
+    private int y = 0;
+
     private GameManager() { }
     public static GameManager getInstance()
     {
@@ -24,15 +24,9 @@ public class GameManager : MonoBehaviour
         }
         return instance;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     public int getNumberOfCellsInRow(int x)
     {
-        //add later to json data
-        int cells = 16 / 4;
+        int cells = PlayerPrefs.GetInt("cellNumber") / 4;
 
         while (x + 1 >= cells)
         {
@@ -40,5 +34,78 @@ public class GameManager : MonoBehaviour
         }
 
         return cells * 4;
+    }
+    public void setMaze(MazeGeneratorCell[,] maze)
+    {
+        this.maze = maze;
+    }
+    public MazeGeneratorCell[,] getMaze()
+    {
+        return maze;
+    }
+    public void printTest()
+    {
+        maze = GlobalVars.maze;
+    }
+    public void findPath()
+    {
+        // not moving = 0
+        // up - 1
+        // right - 2
+        // down - 3
+        // left - 4
+        if (!maze[x, y].IsFinishCell)
+            switch (wallRightPosition)
+            {
+                case 1:
+                    if (x > 0 && maze[x, y].WallLeft)
+                    {
+                        path.Add(4);
+                        findPath();
+                    }
+                    else
+                    {
+                        wallRightPosition = 4;
+                        findPath();
+                    }
+                    break;
+                case 2:
+                    if (y < height - 2 && maze[x, y + 1].WallBottom)
+                    {
+                        path.Add(1);
+                        findPath();
+                    }
+                    else
+                    {
+                        wallRightPosition = 1;
+                        findPath();
+                    }
+                    break;
+                case 3:
+                    if (x < width - 2 && maze[x + 1, y].WallLeft)
+                    {
+                        path.Add(2);
+                        findPath();
+                    }
+                    else
+                    {
+                        wallRightPosition = 2;
+                        findPath();
+                    }
+                    break;
+                case 4:
+                    if (y > 0 && maze[x, y].WallBottom)
+                    {
+                        path.Add(3);
+                        findPath();
+                    }
+                    else
+                    {
+                        wallRightPosition = 3;
+                        findPath();
+                    }
+                    break;
+            }
+        GlobalVars.path = path;
     }
 }

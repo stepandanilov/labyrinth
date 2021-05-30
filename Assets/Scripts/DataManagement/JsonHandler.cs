@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class JsonHandler : MonoBehaviour
 {
-    private static JsonHandler instance;
+    private static JsonHandler instance = null;
     private JsonHandler() { }
     public static JsonHandler getInstance()
     {
@@ -26,6 +26,7 @@ public class JsonHandler : MonoBehaviour
         PlayerPrefs.SetInt("width", data.gammaWidth);
         PlayerPrefs.SetInt("length", data.deltaLength);
         PlayerPrefs.SetInt("radius", data.thetaRadius);
+        PlayerPrefs.SetInt("cellNumber", data.thetaCellNumber);
     }
     public void SaveField()
     {
@@ -40,5 +41,6 @@ public class JsonHandler : MonoBehaviour
         public int gammaHeight;
         public int deltaLength;
         public int thetaRadius;
+        public int thetaCellNumber;
     }
 }

@@ -1,7 +1,8 @@
 {
-	"type" : 1,
+	"type" : 2,
 	"gammaWidth": 5,
 	"gammaHeight": 5,
 	"deltaLength": 6,
-	"thetaRadius" : 5
+	"thetaRadius" : 5,
+	"thetaCellNumber": 16
 }
