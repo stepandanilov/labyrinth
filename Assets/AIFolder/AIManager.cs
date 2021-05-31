@@ -6,7 +6,7 @@ public class AIManager : MonoBehaviour
 {
     private List<int> path = new List<int>();
     private List<Vector2> pathToPoint = new List<Vector2>();
-    private int framesToPoints = 60;
+    private int framesToPoints = 30;
     private int indexX = 0;
     private int indexY = 0;
     private int speed = 2;

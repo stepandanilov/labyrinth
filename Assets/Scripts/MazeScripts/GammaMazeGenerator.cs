@@ -176,6 +176,7 @@ public class MazeGenerator
         {
             furthest.WallBottom = false;
             furthest.IsFinishCell = true;
+
         }
         else if (furthest.X == width - 2)
         {
