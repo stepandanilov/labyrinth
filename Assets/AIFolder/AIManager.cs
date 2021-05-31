@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
-    private List<int> path = new List<int>();
+    public List<int> path = new List<int>();
     private List<Vector2> pathToPoint = new List<Vector2>();
     private int framesToPoints = 30;
     private int indexX = 0;
     private int indexY = 0;
-    private int speed = 2;
-    private bool last = false;
+    //private int speed = 2;
 
-    public new Rigidbody2D rigidbody;
+    //public new Rigidbody2D rigidbody;
 
     private Vector2 offset = new Vector2(0.5f, 0.5f);
-    private Vector2 destination;
-    private float positionReachedDistance = 0.01f;
+    //private Vector2 destination;
+    //private float positionReachedDistance = 0.01f;
 
     // not moving = 0
     // up - 1
@@ -29,8 +28,21 @@ public class AIManager : MonoBehaviour
     {
         //GameManager.getInstance().findPath();
         //path = GameManager.getInstance().path;
-        GlobalVars.findPath();
-        path = GlobalVars.path;
+        GlobalVars.FindPath1();
+        path = GlobalVars.path1;
+        state = path[0];
+        path.RemoveAt(0);
+        calcPathToPoint(state);
+    }
+    public void StartBot2()
+    {
+        GlobalVars.FindPath2(new List<int>() { 1 }, 1, 0, 0);
+        GlobalVars.FindPath2(new List<int>() { 2 }, 2, 0, 0);
+        GlobalVars.FindPath2(new List<int>() { 3 }, 3, 0, 0);
+        GlobalVars.FindPath2(new List<int>() { 4 }, 4, 0, 0);
+
+        path = GlobalVars.path2;
+        path.RemoveAt(path.Count - 1);
         state = path[0];
         path.RemoveAt(0);
         calcPathToPoint(state);
@@ -133,7 +145,6 @@ public class AIManager : MonoBehaviour
                 destinationPoint = new Vector2(indexX, indexY) + offset;
                 break;
         }
-        Debug.Log(destinationPoint.x + " " + destinationPoint.y);
         float n;
         float m;
         float pointX;

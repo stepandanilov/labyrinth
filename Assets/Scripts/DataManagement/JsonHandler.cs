@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class JsonHandler : MonoBehaviour
+public class JsonHandler
 {
     private static JsonHandler instance = null;
     private JsonHandler() { }

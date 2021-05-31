@@ -106,6 +106,6 @@ public class GameManager : MonoBehaviour
                     }
                     break;
             }
-        GlobalVars.path = path;
+        GlobalVars.path1 = path;
     }
 }

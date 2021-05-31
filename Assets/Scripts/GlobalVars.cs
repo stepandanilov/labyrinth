@@ -5,32 +5,39 @@ using UnityEngine;
 public static class GlobalVars
 {
     public static MazeGeneratorCell[,] maze;
-    private static int width = PlayerPrefs.GetInt("width") + 1;
-    private static int height = PlayerPrefs.GetInt("height") + 1;
-    public static List<int> path = new List<int>();
-    public static int x = 0;
-    public static int y = 0;
+    private static readonly int width = PlayerPrefs.GetInt("width") + 1;
+    private static readonly int height = PlayerPrefs.GetInt("height") + 1;
+
+    //AI - 1
+    public static List<int> path1 = new List<int>();
+    public static int x1 = 0;
+    public static int y1 = 0;
     public static int wallRightPosition = 3;
     private static bool turn = false;
-    public static void findPath()
+
+    //AI - 2
+    public static List<int> path2;
+    public static int x2 = 0;
+    public static int y2 = 0;
+    public static bool pathNotFound = true;
+    public static void FindPath1()
     {
         // not moving = 0
         // up - 1
         // right - 2
         // down - 3
         // left - 4
-        if (!maze[x, y].IsFinishCell)
+        if (!maze[x1, y2].IsFinishCell)
         {
             switch (wallRightPosition)
             {
                 case 1:
-                    if (maze[x, y + 1].WallBottom || turn)
+                    if (maze[x1, y2 + 1].WallBottom || turn)
                     {
-                        if (x >= 0 && !maze[x, y].WallLeft)
+                        if (x1 >= 0 && !maze[x1, y2].WallLeft)
                         {
-                            path.Add(4);
-                            Debug.Log(4);
-                            x -= 1;
+                            path1.Add(4);
+                            x1 -= 1;
                             turn = false;
                         }
                         else
@@ -46,13 +53,12 @@ public static class GlobalVars
                     }
                     break;
                 case 2:
-                    if (maze[x + 1, y].WallLeft || turn)
+                    if (maze[x1 + 1, y2].WallLeft || turn)
                     {
-                        if (y <= height - 2 && !maze[x, y + 1].WallBottom)
+                        if (y2 <= height - 2 && !maze[x1, y2 + 1].WallBottom)
                         {
-                            path.Add(1);
-                            Debug.Log(1);
-                            y += 1;
+                            path1.Add(1);
+                            y2 += 1;
                             turn = false;
                         }
                         else
@@ -68,13 +74,12 @@ public static class GlobalVars
                     }
                     break;
                 case 3:
-                    if (maze[x, y].WallBottom || turn)
+                    if (maze[x1, y2].WallBottom || turn)
                     {
-                        if (x <= width - 2 && !maze[x + 1, y].WallLeft)
+                        if (x1 <= width - 2 && !maze[x1 + 1, y2].WallLeft)
                         {
-                            path.Add(2);
-                            Debug.Log(2);
-                            x += 1;
+                            path1.Add(2);
+                            x1 += 1;
                             turn = false;
                         }
                         else
@@ -90,13 +95,12 @@ public static class GlobalVars
                     }
                     break;
                 case 4:
-                    if (maze[x, y].WallLeft || turn)
+                    if (maze[x1, y2].WallLeft || turn)
                     {
-                        if (y >= 0 && !maze[x, y].WallBottom)
+                        if (y2 >= 0 && !maze[x1, y2].WallBottom)
                         {
-                            path.Add(3);
-                            Debug.Log(3);
-                            y -= 1;
+                            path1.Add(3);
+                            y2 -= 1;
                             turn = false;
                         }
                         else
@@ -112,7 +116,53 @@ public static class GlobalVars
                     }
                     break;
             }
-            findPath();
+            FindPath1();
         }
+    }
+    // up - 1
+    // right - 2
+    // down - 3
+    // left - 4
+    public static void FindPath2(List<int> path, int direction, int x, int y)
+    {
+        //Debug.Log("x = " + x + ";y = " + y + ";direction = " + direction);
+        if (pathNotFound)
+        {
+            if (maze[x, y].IsFinishCell)
+            {
+                path2 = new List<int>(path);
+                pathNotFound = false;
+            }
+            else if (y <= height - 2 && direction == 1 && !maze[x, y + 1].WallBottom)
+            {
+                TryThisWay(path, 1, x, y + 1);
+                TryThisWay(path, 2, x, y + 1);
+                TryThisWay(path, 4, x, y + 1);
+            }
+            else if (x <= width - 2 && direction == 2 && !maze[x + 1, y].WallLeft)
+            {
+                TryThisWay(path, 2, x + 1, y);
+                TryThisWay(path, 1, x + 1, y);
+                TryThisWay(path, 3, x + 1, y);
+            }
+            else if (y >= 0 && direction == 3 && !maze[x, y].WallBottom)
+            {
+                TryThisWay(path, 3, x, y - 1);
+                TryThisWay(path, 2, x, y - 1);
+                TryThisWay(path, 4, x, y - 1);
+            }
+            else if (x >= 0 && direction == 4 && !maze[x, y].WallLeft)
+            {
+                TryThisWay(path, 4, x - 1, y);
+                TryThisWay(path, 3, x - 1, y);
+                TryThisWay(path, 1, x - 1, y);
+            }
+        }
+    }
+    public static void TryThisWay(List<int> path, int direction, int x, int y)
+    {
+        path.Add(direction);
+        FindPath2(path, direction, x, y);
+        path.RemoveAt(path.Count - 1);
     }
 }
