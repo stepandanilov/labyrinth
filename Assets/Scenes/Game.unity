@@ -1991,7 +1991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1228112082
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3357,6 +3357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: 
+  indexX: 0
+  indexY: 0
 --- !u!96 &2283030823881150512
 TrailRenderer:
   serializedVersion: 2
@@ -3586,7 +3588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5037014492029800264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3600,6 +3602,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: 
+  indexX: 0
+  indexY: 0
 --- !u!4 &5037014492029800280
 Transform:
   m_ObjectHideFlags: 0

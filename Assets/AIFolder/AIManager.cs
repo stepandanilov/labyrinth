@@ -6,9 +6,9 @@ public class AIManager : MonoBehaviour
 {
     public List<int> path = new List<int>();
     private List<Vector2> pathToPoint = new List<Vector2>();
-    private int framesToPoints = 30;
-    private int indexX = 0;
-    private int indexY = 0;
+    private int framesToPoints = 60;
+    public int indexX = 0;
+    public int indexY = 0;
     private float triangleSide = 1.5f;
     //private int speed = 2;
 
@@ -25,12 +25,36 @@ public class AIManager : MonoBehaviour
     // left - 4 dead
     private int state;
     // Start is called before the first frame update
+    public void Start()
+    {
+        switch(PlayerPrefs.GetInt("type"))
+        {
+            case 1:
+                transform.position = new Vector2(0.5f, 0.5f);
+                break;
+            case 2:
+                transform.position = new Vector2(0.75f, 0.4330127f);
+                break;
+        }
+    }
     public void StartBot()
     {
         //GameManager.getInstance().findPath();
         //path = GameManager.getInstance().path;
-        GlobalVars.FindPath1();
-        path = GlobalVars.path1;
+
+        //GlobalVars.FindPath1();
+        //path = GlobalVars.path1;
+
+        path.Add(2);
+        path.Add(3);
+        path.Add(2);
+        path.Add(4);
+        path.Add(3);
+        path.Add(2);
+        path.Add(4);
+        path.Add(2);
+
+
         state = path[0];
         path.RemoveAt(0);
         calcPathToPoint(state);
@@ -115,6 +139,42 @@ public class AIManager : MonoBehaviour
                 currentPoint = new Vector2(x, y) - offset;
             }
             destinationPoint = new Vector2();
+            if (indexY % 2 == 0) //not rotated triangle
+            {
+                switch(direction)
+                {
+                    case 2://right
+                        indexY++;
+                        break;
+                    case 3://down
+                        indexY--;
+                        break;
+                    case 4://left
+                        indexX--;
+                        indexY++;
+                        break;
+                }
+                destinationPoint = new Vector2((indexX + 1.25f + indexY / 4f) * triangleSide,
+                            ((indexY + 1) * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f) - offset;
+            }
+            else //rotated triangle
+            {
+                switch(direction)
+                {
+                    case 2:
+                        indexY--;
+                        break;
+                    case 3:
+                        indexY++;
+                        break;
+                    case 4:
+                        indexX++;
+                        indexY--;
+                        break;
+                }
+                destinationPoint = new Vector2((indexX + indexY / 4f) * triangleSide,
+                    (indexY * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f) + offset;
+            }
         }
         float n;
         float m;
