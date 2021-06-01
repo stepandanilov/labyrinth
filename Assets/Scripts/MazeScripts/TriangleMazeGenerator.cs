@@ -18,6 +18,8 @@ public class TriangleMazeGeneratorCell
     public int DistanceFromStart;
 
     public bool isFinishCell = false;
+
+    public bool rotated = false;
 }
 public class TriangleMazeGenerator
 {
@@ -42,6 +44,7 @@ public class TriangleMazeGenerator
                 else
                     maze[x, y] = new TriangleMazeGeneratorCell
                     {
+                        rotated = true,
                         X = (float)((x + 1.25 + y * 0.25) * 1.5),
                         Y = (float)(((y + 1) * Mathf.Sin(Mathf.PI / 3)) * 1.5) / 2,
                         indexX = x,
@@ -50,9 +53,9 @@ public class TriangleMazeGenerator
 
             }
         }
-        removeWallsWithBacktracker(maze);
+        //removeWallsWithBacktracker(maze);
 
-        placeExit(maze);
+        //placeExit(maze);
 
         return maze;
     }

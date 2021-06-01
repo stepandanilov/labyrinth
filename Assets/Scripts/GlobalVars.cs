@@ -12,8 +12,11 @@ public static class GlobalVars
     public static List<int> path1 = new List<int>();
     public static int x1 = 0;
     public static int y1 = 0;
+    //gamma
     public static int wallRightPosition = 3;
     private static bool turn = false;
+    //delta
+
 
     //AI - 2
     public static List<int> path2;
@@ -119,13 +122,12 @@ public static class GlobalVars
             FindPath1();
         }
     }
-    // up - 1
-    // right - 2
-    // down - 3
-    // left - 4
     public static void FindPath2(List<int> path, int direction, int x, int y)
     {
-        //Debug.Log("x = " + x + ";y = " + y + ";direction = " + direction);
+        // up - 1
+        // right - 2
+        // down - 3
+        // left - 4
         if (pathNotFound)
         {
             if (maze[x, y].IsFinishCell)
@@ -164,5 +166,9 @@ public static class GlobalVars
         path.Add(direction);
         FindPath2(path, direction, x, y);
         path.RemoveAt(path.Count - 1);
+    }
+    public static void FindPath1Delta()
+    {
+
     }
 }

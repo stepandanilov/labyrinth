@@ -21,6 +21,7 @@ public class MazeSpawner : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        Debug.Log(Mathf.Sin(Mathf.PI / 3f));
         switch (PlayerPrefs.GetInt("type"))
         {
             case 1:

@@ -9,6 +9,7 @@ public class AIManager : MonoBehaviour
     private int framesToPoints = 30;
     private int indexX = 0;
     private int indexY = 0;
+    private float triangleSide = 1.5f;
     //private int speed = 2;
 
     //public new Rigidbody2D rigidbody;
@@ -64,86 +65,56 @@ public class AIManager : MonoBehaviour
                 calcPathToPoint(state);
             }
         }
-        
-
-        //switch (state)
-        //{
-        //    case 0:
-        //        rigidbody.velocity = new Vector2(0, 0);
-        //        break;
-        //    case 1:
-        //        rigidbody.velocity = new Vector2(0, speed);
-        //        break;
-        //    case 2:
-        //        rigidbody.velocity = new Vector2(speed, 0);
-        //        break;
-        //    case 3:
-        //        rigidbody.velocity = new Vector2(0, -speed);
-        //        break;
-        //    case 4:
-        //        rigidbody.velocity = new Vector2(-speed, 0);
-        //        break;
-        //}
-        //if (Vector2.Distance(transform.position, destination) < positionReachedDistance)
-        //{
-        //    if (path.Count > 0)
-        //    {
-        //        state = path[0];
-        //        path.RemoveAt(0);
-        //        move(state);
-        //    }
-        //    else
-        //    {
-        //        state = 0;
-        //    }
-        //}
-
     }
-    //private void move(int direction)
-    //{
-    //    switch (direction)
-    //    {
-    //        case 1:
-    //            indexY++;
-    //            destination = new Vector2(indexX, indexY) + offset;
-    //            break;
-    //        case 2:
-    //            indexX++;
-    //            destination = new Vector2(indexX, indexY) + offset;
-    //            break;
-    //        case 3:
-    //            indexY--;
-    //            destination = new Vector2(indexX, indexY) + offset;
-    //            break;
-    //        case 4:
-    //            indexX--;
-    //            destination = new Vector2(indexX, indexY) + offset;
-    //            break;
-    //    }
-    //}
     private void calcPathToPoint(int direction)
     {
+        Vector2 currentPoint;
+        Vector2 destinationPoint;
         pathToPoint.Clear();
-        Vector2 currentPoint = new Vector2(indexX, indexY) + offset;
-        Vector2 destinationPoint = new Vector2();
-        switch (direction)
+        if (PlayerPrefs.GetInt("type") == 1)
         {
-            case 1:
-                indexY++;
-                destinationPoint = new Vector2(indexX, indexY) + offset;
-                break;
-            case 2:
-                indexX++;
-                destinationPoint = new Vector2(indexX, indexY) + offset;
-                break;
-            case 3:
-                indexY--;
-                destinationPoint = new Vector2(indexX, indexY) + offset;
-                break;
-            case 4:
-                indexX--;
-                destinationPoint = new Vector2(indexX, indexY) + offset;
-                break;
+            currentPoint = new Vector2(indexX, indexY) + offset;
+            destinationPoint = new Vector2();
+            switch (direction)
+            {
+                case 1:
+                    indexY++;
+                    destinationPoint = new Vector2(indexX, indexY) + offset;
+                    break;
+                case 2:
+                    indexX++;
+                    destinationPoint = new Vector2(indexX, indexY) + offset;
+                    break;
+                case 3:
+                    indexY--;
+                    destinationPoint = new Vector2(indexX, indexY) + offset;
+                    break;
+                case 4:
+                    indexX--;
+                    destinationPoint = new Vector2(indexX, indexY) + offset;
+                    break;
+            }
+        }
+        else 
+        // if (PlayerPrefs.GetInt("type") == 2)
+        {
+            float x;
+            float y;
+            offset  = new Vector2(0.5f, (1f / Mathf.Sqrt(12)));
+            offset *= triangleSide;
+            if (indexY % 2 == 0)
+            {
+                x = (indexX + indexY / 4f) * triangleSide;
+                y = (indexY * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f;
+                currentPoint = new Vector2(x, y) + offset;
+            }
+            else
+            {
+                x = (indexX + 1.25f + indexY / 4f) * triangleSide;
+                y = ((indexY + 1) * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f;
+                currentPoint = new Vector2(x, y) - offset;
+            }
+            destinationPoint = new Vector2();
         }
         float n;
         float m;
