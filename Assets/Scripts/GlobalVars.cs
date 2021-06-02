@@ -5,6 +5,7 @@ using UnityEngine;
 public static class GlobalVars
 {
     public static MazeGeneratorCell[,] maze;
+    public static TriangleMazeGeneratorCell[,] deltaMaze;
     private static readonly int width = PlayerPrefs.GetInt("width") + 1;
     private static readonly int height = PlayerPrefs.GetInt("height") + 1;
 
@@ -12,11 +13,10 @@ public static class GlobalVars
     public static List<int> path1 = new List<int>();
     public static int x1 = 0;
     public static int y1 = 0;
-    //gamma
     public static int wallRightPosition = 3;
+    public static int wallRightPositionRotated = 2;
+    public static bool change = true;
     private static bool turn = false;
-    //delta
-
 
     //AI - 2
     public static List<int> path2;
@@ -30,14 +30,14 @@ public static class GlobalVars
         // right - 2
         // down - 3
         // left - 4
-        if (!maze[x1, y2].IsFinishCell)
+        if (!maze[x1, y1].IsFinishCell)
         {
             switch (wallRightPosition)
             {
                 case 1:
-                    if (maze[x1, y2 + 1].WallBottom || turn)
+                    if (maze[x1, y1 + 1].WallBottom || turn)
                     {
-                        if (x1 >= 0 && !maze[x1, y2].WallLeft)
+                        if (x1 >= 0 && !maze[x1, y1].WallLeft)
                         {
                             path1.Add(4);
                             x1 -= 1;
@@ -56,12 +56,12 @@ public static class GlobalVars
                     }
                     break;
                 case 2:
-                    if (maze[x1 + 1, y2].WallLeft || turn)
+                    if (maze[x1 + 1, y1].WallLeft || turn)
                     {
-                        if (y2 <= height - 2 && !maze[x1, y2 + 1].WallBottom)
+                        if (y1 <= height - 2 && !maze[x1, y1 + 1].WallBottom)
                         {
                             path1.Add(1);
-                            y2 += 1;
+                            y1 += 1;
                             turn = false;
                         }
                         else
@@ -77,9 +77,9 @@ public static class GlobalVars
                     }
                     break;
                 case 3:
-                    if (maze[x1, y2].WallBottom || turn)
+                    if (maze[x1, y1].WallBottom || turn)
                     {
-                        if (x1 <= width - 2 && !maze[x1 + 1, y2].WallLeft)
+                        if (x1 <= width - 2 && !maze[x1 + 1, y1].WallLeft)
                         {
                             path1.Add(2);
                             x1 += 1;
@@ -98,12 +98,12 @@ public static class GlobalVars
                     }
                     break;
                 case 4:
-                    if (maze[x1, y2].WallLeft || turn)
+                    if (maze[x1, y1].WallLeft || turn)
                     {
-                        if (y2 >= 0 && !maze[x1, y2].WallBottom)
+                        if (y1 >= 0 && !maze[x1, y1].WallBottom)
                         {
                             path1.Add(3);
-                            y2 -= 1;
+                            y1 -= 1;
                             turn = false;
                         }
                         else
@@ -169,6 +169,183 @@ public static class GlobalVars
     }
     public static void FindPath1Delta()
     {
+        // not moving = 0
+        // up - 1
+        // right - 2
+        // down - 3
+        // left - 4
+        if (!deltaMaze[x1, y1].isFinishCell)
+        {
+            if (y1 % 2 == 0) //not rotated cell
+            {
+                if (change)
+                {
+                    wallRightPosition = wallRightPositionRotated + 1;
+                    if (wallRightPosition == 5) wallRightPosition = 2;
+                }
 
+                switch (wallRightPosition)
+                {
+                    case 2:
+                        if (deltaMaze[x1, y1].WallRight || turn)
+                        {
+                            if ((x1 > 0) && !deltaMaze[x1, y1].WallLeft 
+                                && !deltaMaze[x1 - 1, y1 + 1].WallLeft)
+                            {
+                                path1.Add(4);
+                                x1--;
+                                y1++;
+                                turn = false;
+                                change = true;
+                            }
+                            else
+                            {
+                                wallRightPosition = 4;
+                                change = false;
+                            }
+                        }
+                        else
+                        {
+                            wallRightPosition = 3;
+                            turn = true;
+                            change = false;
+                        }
+                        break;
+                    case 3:
+                        if (deltaMaze[x1,y1].WallBottom || turn)
+                        {
+                            if ((y1 < deltaMaze.GetLength(0) * 2 - x1 * 2 - 1)
+                                && !deltaMaze[x1, y1].WallRight
+                                && !deltaMaze[x1, y1 + 1].WallRight)
+                            {
+                                path1.Add(2);
+                                y1++;
+                                turn = false;
+                                change = true;
+                            }
+                            else
+                            {
+                                wallRightPosition = 2;
+                                change = false;
+                            }
+                        }
+                        else
+                        {
+                            wallRightPosition = 4;
+                            turn = true;
+                            change = false;
+                        }
+                        break;
+                    case 4:
+                        if (deltaMaze[x1, y1].WallRight || turn)
+                        {
+                            if ((y1 > 0) && !deltaMaze[x1, y1].WallBottom
+                                && !deltaMaze[x1, y1 - 1].WallBottom)
+                            {
+                                path1.Add(3);
+                                y1--;
+                                turn = false;
+                                change = true;
+                            }
+                            else
+                            {
+                                wallRightPosition = 3;
+                                change = false;
+                            }
+                        }
+                        else
+                        {
+                            wallRightPosition = 2;
+                            turn = true;
+                            change = false;
+                        }
+                        break;
+                }
+                
+            }
+            else //rotated cell
+            {
+                if (change)
+                {
+                    wallRightPositionRotated = wallRightPosition + 1;
+                    if (wallRightPositionRotated == 5) wallRightPositionRotated = 2;
+                }
+                
+                switch (wallRightPositionRotated)
+                {
+                    case 2:
+                        if (deltaMaze[x1, y1].WallRight || turn)
+                        {
+                            if (!deltaMaze[x1, y1].WallLeft && !deltaMaze[x1 + 1, y1 - 1].WallLeft)
+                            {
+                                path1.Add(4);
+                                x1++;
+                                y1--;
+                                turn = false;
+                                change = true;
+                            }
+                            else
+                            {
+                                wallRightPositionRotated = 4;
+                                change = false;
+                            }
+                        }
+                        else
+                        {
+                            wallRightPositionRotated = 3;
+                            turn = true;
+                            change = false;
+                        }
+                        break;
+                    case 3:
+                        if (deltaMaze[x1, y1].WallBottom || turn)
+                        {
+                            if (!deltaMaze[x1, y1].WallRight && !deltaMaze[x1, y1 - 1].WallRight)
+                            {
+                                path1.Add(2);
+                                y1--;
+                                turn = false;
+                                change = true;
+                            }
+                            else
+                            {
+                                wallRightPositionRotated = 2;
+                                change = false;
+                            }
+                        }
+                        else
+                        {
+                            wallRightPositionRotated = 4;
+                            turn = true;
+                            change = false;
+                        }
+                        break;
+                    case 4:
+                        if (deltaMaze[x1, y1].WallLeft || turn)
+                        {
+                            if (!deltaMaze[x1, y1].WallBottom && !deltaMaze[x1, y1 + 1].WallBottom)
+                            {
+                                path1.Add(3);
+                                y1++;
+                                turn = false;
+                                change = true;
+                            }
+                            else
+                            {
+                                wallRightPositionRotated = 3;
+                                change = false;
+                            }
+                        }
+                        else
+                        {
+                            wallRightPositionRotated = 2;
+                            turn = true;
+                            change = false;
+                        }
+                        break;
+                }
+            }
+            FindPath1Delta();
+        }
     }
 }

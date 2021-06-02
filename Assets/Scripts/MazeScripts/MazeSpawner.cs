@@ -98,6 +98,7 @@ public class MazeSpawner : MonoBehaviour
     {
         TriangleMazeGenerator generator = new TriangleMazeGenerator();
         TriangleMazeGeneratorCell[,] maze = generator.GenerateMaze();
+        GlobalVars.deltaMaze = maze;
         for (int x = 0; x < maze.GetLength(0); x++)
         {
             for (int y = 0; y < maze.GetLength(0) * 2 - x * 2 - 1; y++)

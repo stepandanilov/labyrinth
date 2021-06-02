@@ -53,9 +53,9 @@ public class TriangleMazeGenerator
 
             }
         }
-        //removeWallsWithBacktracker(maze);
+        removeWallsWithBacktracker(maze);
 
-        //placeExit(maze);
+        placeExit(maze);
 
         return maze;
     }

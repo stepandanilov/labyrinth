@@ -41,20 +41,18 @@ public class AIManager : MonoBehaviour
     {
         //GameManager.getInstance().findPath();
         //path = GameManager.getInstance().path;
-
-        //GlobalVars.FindPath1();
-        //path = GlobalVars.path1;
-
-        path.Add(2);
-        path.Add(3);
-        path.Add(2);
-        path.Add(4);
-        path.Add(3);
-        path.Add(2);
-        path.Add(4);
-        path.Add(2);
-
-
+        switch (PlayerPrefs.GetInt("type"))
+        {
+            case 1:
+                GlobalVars.FindPath1();
+                path = GlobalVars.path1;
+                break;
+            case 2:
+                GlobalVars.FindPath1Delta();
+                path = GlobalVars.path1;
+                break;
+        }
+        
         state = path[0];
         path.RemoveAt(0);
         calcPathToPoint(state);
