@@ -14,7 +14,7 @@ public class AIManager : MonoBehaviour
 
     //public new Rigidbody2D rigidbody;
 
-    private Vector2 offset = new Vector2(0.5f, 0.5f);
+    private Vector2 offset;
     //private Vector2 destination;
     //private float positionReachedDistance = 0.01f;
 
@@ -23,7 +23,7 @@ public class AIManager : MonoBehaviour
     // right - 2
     // down - 3
     // left - 4 dead
-    private int state;
+    private int direction;
     // Start is called before the first frame update
     public void Start()
     {
@@ -53,22 +53,31 @@ public class AIManager : MonoBehaviour
                 break;
         }
         
-        state = path[0];
+        direction = path[0];
         path.RemoveAt(0);
-        calcPathToPoint(state);
+        calcPathToPoint(direction);
     }
     public void StartBot2()
     {
-        GlobalVars.FindPath2(new List<int>() { 1 }, 1, 0, 0);
-        GlobalVars.FindPath2(new List<int>() { 2 }, 2, 0, 0);
-        GlobalVars.FindPath2(new List<int>() { 3 }, 3, 0, 0);
-        GlobalVars.FindPath2(new List<int>() { 4 }, 4, 0, 0);
-
+        switch (PlayerPrefs.GetInt("type"))
+        {
+            case 1:
+                GlobalVars.FindPath2(new List<int>() { 1 }, 1, 0, 0);
+                GlobalVars.FindPath2(new List<int>() { 2 }, 2, 0, 0);
+                GlobalVars.FindPath2(new List<int>() { 3 }, 3, 0, 0);
+                GlobalVars.FindPath2(new List<int>() { 4 }, 4, 0, 0);
+                break;
+            case 2:
+                GlobalVars.FindPath2Delta(new List<int>() { 2 }, 2, 0, 0);
+                GlobalVars.FindPath2Delta(new List<int>() { 3 }, 3, 0, 0);
+                GlobalVars.FindPath2Delta(new List<int>() { 4 }, 3, 0, 0);
+                break;
+        }
         path = GlobalVars.path2;
         path.RemoveAt(path.Count - 1);
-        state = path[0];
+        direction = path[0];
         path.RemoveAt(0);
-        calcPathToPoint(state);
+        calcPathToPoint(direction);
     }
     private void Update()
     {
@@ -82,9 +91,9 @@ public class AIManager : MonoBehaviour
         {
             if (path.Count != 0)
             {
-                state = path[0];
+                direction = path[0];
                 path.RemoveAt(0);
-                calcPathToPoint(state);
+                calcPathToPoint(direction);
             }
         }
     }

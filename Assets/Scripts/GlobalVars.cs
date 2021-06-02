@@ -161,12 +161,6 @@ public static class GlobalVars
             }
         }
     }
-    public static void TryThisWay(List<int> path, int direction, int x, int y)
-    {
-        path.Add(direction);
-        FindPath2(path, direction, x, y);
-        path.RemoveAt(path.Count - 1);
-    }
     public static void FindPath1Delta()
     {
         // not moving = 0
@@ -347,5 +341,87 @@ public static class GlobalVars
             }
             FindPath1Delta();
         }
+    }
+    public static void FindPath2Delta(List<int> path, int direction, int x, int y)
+    {
+        if (pathNotFound)
+        {
+            if (deltaMaze[x, y].isFinishCell)
+            {
+                path2 = new List<int>(path);
+                pathNotFound = false;
+            }
+            else
+            {
+                if (y % 2 == 0) //not rotated cell
+                {
+                    switch (direction)
+                    {
+                        case 2:
+                            if (!deltaMaze[x, y].WallRight)
+                            {
+                                TryThisWay(path, 3, x, y + 1);
+                                TryThisWay(path, 4, x, y + 1);
+                            }
+                            break;
+                        case 3:
+                            if (!deltaMaze[x, y].WallBottom)
+                            {
+                                TryThisWay(path, 2, x, y - 1);
+                                TryThisWay(path, 4, x, y - 1);
+                            }
+                            break;
+                        case 4:
+                            if (!deltaMaze[x, y].WallLeft)
+                            {
+                                TryThisWay(path, 2, x - 1, y + 1);
+                                TryThisWay(path, 3, x - 1, y + 1);
+                            }
+                            break;
+                    }
+                }
+                else //rotated cell
+                {
+                    switch (direction)
+                    {
+                        case 2:
+                            if (!deltaMaze[x, y].WallRight)
+                            {
+                                TryThisWay(path, 3, x, y - 1);
+                                TryThisWay(path, 4, x, y - 1);
+                            }
+                            break;
+                        case 3:
+                            if (!deltaMaze[x, y].WallBottom)
+                            {
+                                TryThisWay(path, 2, x, y + 1);
+                                TryThisWay(path, 4, x, y + 1);
+                            }
+                            break;
+                        case 4:
+                            if (!deltaMaze[x, y].WallLeft)
+                            {
+                                TryThisWay(path, 2, x + 1, y - 1);
+                                TryThisWay(path, 3, x + 1, y - 1);
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    public static void TryThisWay(List<int> path, int direction, int x, int y)
+    {
+        path.Add(direction);
+        switch (PlayerPrefs.GetInt("type"))
+        {
+            case 1:
+                FindPath2(path, direction, x, y);
+                break;
+            case 2:
+                FindPath2Delta(path, direction, x, y);
+                break;
+        }
+        path.RemoveAt(path.Count - 1);
     }
 }
