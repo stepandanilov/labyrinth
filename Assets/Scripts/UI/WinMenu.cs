@@ -5,17 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class WinMenu : MonoBehaviour
 {
-    public static WinMenu staticWinMenu;
+    private static WinMenu instance;
     public GameObject WinMenuUI;
 
     private void Start()
     {
-        staticWinMenu = this;
+        instance = this;
     }
-    // Update is called once per frame
-    void Update()
+    public static WinMenu getInstance()
     {
-        
+        return instance;
     }
     public void Victory()
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class GlobalVars
+public static class Utils
 {
     public static MazeGeneratorCell[,] maze;
     public static TriangleMazeGeneratorCell[,] deltaMaze;
@@ -423,5 +423,16 @@ public static class GlobalVars
                 break;
         }
         path.RemoveAt(path.Count - 1);
+    }
+    public static int getNumberOfCellsInRow(int x)
+    {
+        int cells = PlayerPrefs.GetInt("cellNumber") / 4;
+
+        while (x + 1 >= cells)
+        {
+            cells *= 2;
+        }
+
+        return cells * 4;
     }
 }
