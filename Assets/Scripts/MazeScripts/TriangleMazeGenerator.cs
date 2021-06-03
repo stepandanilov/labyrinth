@@ -159,14 +159,17 @@ public class TriangleMazeGenerator
         if (furthest.indexX == 0)
         {
             furthest.WallLeft = false;
+            Utils.finishWallDirection = 4;
         }
         else if (furthest.indexY == 0)
         {
             furthest.WallBottom = false;
+            Utils.finishWallDirection = 3;
         }
         else
         {
             furthest.WallRight = false;
+            Utils.finishWallDirection = 2;
         }
     }
 }

@@ -51,7 +51,7 @@ public class MazeSpawner : MonoBehaviour
                 if (maze[x, y].IsFinishCell)
                 {
                     FinishCell f;
-                    switch (Utils.gammaMazeFinishSide)
+                    switch (Utils.finishWallDirection)
                     {
                         case 1:
                             f = Instantiate(FinishCellPrefab, new Vector2(x, y), Quaternion.identity).GetComponent<FinishCell>();
@@ -114,26 +114,26 @@ public class MazeSpawner : MonoBehaviour
                 if (maze[x,y].isFinishCell)
                 {
                     TriangleFinishCell f = Instantiate(TriangleFinishCellPrefab, new Vector2(maze[x, y].X, maze[x, y].Y), Quaternion.identity).GetComponent<TriangleFinishCell>();
-                    if (x == 0)
+                    switch(Utils.finishWallDirection)
                     {
-                        f.WallLeft.SetActive(true);
+                        case 2:
+                            f.WallRight.SetActive(true);
 
-                        f.WallBottom.SetActive(false);
-                        f.WallRight.SetActive(false);
-                    }
-                    else if (y == 0)
-                    {
-                        f.WallBottom.SetActive(true);
+                            f.WallLeft.SetActive(false);
+                            f.WallBottom.SetActive(false);
+                            break;
+                        case 3:
+                            f.WallBottom.SetActive(true);
 
-                        f.WallLeft.SetActive(false);
-                        f.WallRight.SetActive(false);
-                    }
-                    else
-                    {
-                        f.WallRight.SetActive(true);
+                            f.WallLeft.SetActive(false);
+                            f.WallRight.SetActive(false);
+                            break;
+                        case 4:
+                            f.WallLeft.SetActive(true);
 
-                        f.WallLeft.SetActive(false);
-                        f.WallBottom.SetActive(false);
+                            f.WallBottom.SetActive(false);
+                            f.WallRight.SetActive(false);
+                            break;
                     }
                 }
             }

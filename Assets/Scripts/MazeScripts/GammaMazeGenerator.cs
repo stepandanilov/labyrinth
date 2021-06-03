@@ -169,27 +169,27 @@ public class MazeGenerator
         //determining which side it's on
         if (furthest.X == 0) //left
         {
-            Utils.gammaMazeFinishSide = 4;
+            Utils.finishWallDirection = 4;
             furthest.WallLeft = false;
             furthest.IsFinishCell = true;
         }
         else if (furthest.Y == 0) //bottom
         {
-            Utils.gammaMazeFinishSide = 3;
+            Utils.finishWallDirection = 3;
             furthest.WallBottom = false;
             furthest.IsFinishCell = true;
 
         }
         else if (furthest.X == width - 2) //right
         {
-            Utils.gammaMazeFinishSide = 2;
+            Utils.finishWallDirection = 2;
             maze[furthest.X + 1, furthest.Y].WallLeft = false;
             furthest.IsFinishCell = true;
         }
         else
         //if (furthest.Y == height - 2) //top
         {
-            Utils.gammaMazeFinishSide = 1;
+            Utils.finishWallDirection = 1;
             maze[furthest.X, furthest.Y + 1].WallBottom = false;
             furthest.IsFinishCell = true;
         }
