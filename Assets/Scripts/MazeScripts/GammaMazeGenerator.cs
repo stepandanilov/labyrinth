@@ -155,38 +155,43 @@ public class MazeGenerator
         //finding furthest cell
         MazeGeneratorCell furthest = maze[0, 0];
 
-        for (int x = 0; x < maze.GetLength(0); x++)
+        for (int x = 0; x < maze.GetLength(0) - 1; x++)
         {
             if (maze[x, height - 2].DistanceFromStart > furthest.DistanceFromStart) furthest = maze[x, height - 2];
             if (maze[x, 0].DistanceFromStart > furthest.DistanceFromStart) furthest = maze[x, 0];
         }
 
-        for (int y = 0; y < maze.GetLength(1); y++)
+        for (int y = 0; y < maze.GetLength(1) - 1; y++)
         {
             if (maze[width - 2, y].DistanceFromStart > furthest.DistanceFromStart) furthest = maze[width - 2, y];
             if (maze[0, y].DistanceFromStart > furthest.DistanceFromStart) furthest = maze[0, y];
         }
         //determining which side it's on
-        if (furthest.X == 0)
+        if (furthest.X == 0) //left
         {
+            Utils.gammaMazeFinishSide = 4;
             furthest.WallLeft = false;
             furthest.IsFinishCell = true;
         }
-        else if (furthest.Y == 0)
+        else if (furthest.Y == 0) //bottom
         {
+            Utils.gammaMazeFinishSide = 3;
             furthest.WallBottom = false;
             furthest.IsFinishCell = true;
 
         }
-        else if (furthest.X == width - 2)
+        else if (furthest.X == width - 2) //right
         {
+            Utils.gammaMazeFinishSide = 2;
             maze[furthest.X + 1, furthest.Y].WallLeft = false;
-            maze[furthest.X + 1, furthest.Y].IsFinishCell = true;
+            furthest.IsFinishCell = true;
         }
-        else if (furthest.Y == height - 2)
+        else
+        //if (furthest.Y == height - 2) //top
         {
+            Utils.gammaMazeFinishSide = 1;
             maze[furthest.X, furthest.Y + 1].WallBottom = false;
-            maze[furthest.X, furthest.Y + 1].IsFinishCell = true;
+            furthest.IsFinishCell = true;
         }
     }
 }

@@ -48,14 +48,13 @@ public class AIManager : MonoBehaviour
         {
             case 1:
                 Utils.FindPath1();
-                path = Utils.path1;
                 break;
             case 2:
                 Utils.FindPath1Delta();
-                path = Utils.path1;
                 break;
         }
-        
+        Utils.GetThroughFinishLine(1);
+        path = Utils.path1;
         direction = path[0];
         path.RemoveAt(0);
         calcPathToPoint(direction);
@@ -76,8 +75,9 @@ public class AIManager : MonoBehaviour
                 Utils.FindPath2Delta(new List<int>() { 4 }, 3, 0, 0);
                 break;
         }
+        Utils.path2.RemoveAt(Utils.path2.Count - 1);
+        Utils.GetThroughFinishLine(2);
         path = Utils.path2;
-        path.RemoveAt(path.Count - 1);
         direction = path[0];
         path.RemoveAt(0);
         calcPathToPoint(direction);

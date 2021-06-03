@@ -8,6 +8,7 @@ public static class Utils
     public static TriangleMazeGeneratorCell[,] deltaMaze;
     private static readonly int width = PlayerPrefs.GetInt("width") + 1;
     private static readonly int height = PlayerPrefs.GetInt("height") + 1;
+    public static int gammaMazeFinishSide;
 
     //AI - 1
     public static List<int> path1 = new List<int>();
@@ -434,5 +435,33 @@ public static class Utils
         }
 
         return cells * 4;
+    }
+    public static void GetThroughFinishLine(int ai)
+    {
+        switch (ai)
+        {
+            case 1:
+                switch (PlayerPrefs.GetInt("type"))
+                {
+                    case 1:
+                        path1.Add(Utils.gammaMazeFinishSide);
+                        break;
+                    case 2:
+                        break;
+                }
+                break;
+            case 2:
+                switch (PlayerPrefs.GetInt("type"))
+                {
+                    case 1:
+                        path2.Add(Utils.gammaMazeFinishSide);
+                        break;
+                    case 2:
+                        break;
+                }
+                break;
+        }
+
+       
     }
 }

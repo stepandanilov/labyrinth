@@ -50,45 +50,45 @@ public class MazeSpawner : MonoBehaviour
 
                 if (maze[x, y].IsFinishCell)
                 {
-                    if (x == 0)
+                    FinishCell f;
+                    switch (Utils.gammaMazeFinishSide)
                     {
-                        FinishCell f = Instantiate(FinishCellPrefab, new Vector2(x, y), Quaternion.identity).GetComponent<FinishCell>();
+                        case 1:
+                            f = Instantiate(FinishCellPrefab, new Vector2(x, y), Quaternion.identity).GetComponent<FinishCell>();
 
-                        f.WallLeft.SetActive(true);
+                            f.WallTop.SetActive(true);
 
-                        f.WallBottom.SetActive(false);
-                        f.WallTop.SetActive(false);
-                        f.WallRight.SetActive(false);
-                    }
-                    else if (y == 0)
-                    {
-                        FinishCell f = Instantiate(FinishCellPrefab, new Vector2(x, y), Quaternion.identity).GetComponent<FinishCell>();
+                            f.WallBottom.SetActive(false);
+                            f.WallLeft.SetActive(false);
+                            f.WallRight.SetActive(false);
+                            break;
+                        case 2:
+                            f = Instantiate(FinishCellPrefab, new Vector2(x, y), Quaternion.identity).GetComponent<FinishCell>();
 
-                        f.WallBottom.SetActive(true);
+                            f.WallRight.SetActive(true);
 
-                        f.WallTop.SetActive(false);
-                        f.WallRight.SetActive(false);
-                        f.WallLeft.SetActive(false);
-                    }
-                    else if (y == maze.GetLength(1) - 1)
-                    {
-                        FinishCell f = Instantiate(FinishCellPrefab, new Vector2(x, y - 1), Quaternion.identity).GetComponent<FinishCell>();
+                            f.WallTop.SetActive(false);
+                            f.WallBottom.SetActive(false);
+                            f.WallLeft.SetActive(false);
+                            break;
+                        case 3:
+                            f = Instantiate(FinishCellPrefab, new Vector2(x, y), Quaternion.identity).GetComponent<FinishCell>();
 
-                        f.WallTop.SetActive(true);
+                            f.WallBottom.SetActive(true);
 
-                        f.WallRight.SetActive(false);
-                        f.WallBottom.SetActive(false);
-                        f.WallLeft.SetActive(false);
-                    }
-                    else if (x == maze.GetLength(0) - 1)
-                    {
-                        FinishCell f = Instantiate(FinishCellPrefab, new Vector2(x - 1, y), Quaternion.identity).GetComponent<FinishCell>();
+                            f.WallTop.SetActive(false);
+                            f.WallRight.SetActive(false);
+                            f.WallLeft.SetActive(false);
+                            break;
+                        case 4:
+                            f = Instantiate(FinishCellPrefab, new Vector2(x, y), Quaternion.identity).GetComponent<FinishCell>();
 
-                        f.WallRight.SetActive(true);
+                            f.WallLeft.SetActive(true);
 
-                        f.WallBottom.SetActive(false);
-                        f.WallLeft.SetActive(false);
-                        f.WallTop.SetActive(false);
+                            f.WallBottom.SetActive(false);
+                            f.WallTop.SetActive(false);
+                            f.WallRight.SetActive(false);
+                            break;
                     }
                 }
             }
