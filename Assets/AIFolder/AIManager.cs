@@ -6,18 +6,12 @@ public class AIManager : MonoBehaviour
 {
     public List<int> path = new List<int>();
     private List<Vector2> pathToPoint = new List<Vector2>();
-    private int framesToPoints = 15;
+    private int framesToPoints = 30;
     public int indexX = 0;
     public int indexY = 0;
-    private float triangleSide = 1.5f;
-    //private int speed = 2;
-
-    //public new Rigidbody2D rigidbody;
+    private float scale = 1.5f;
 
     private Vector2 offset;
-    //private Vector2 destination;
-    //private float positionReachedDistance = 0.01f;
-
     // not moving = 0
     // up - 1
     // right - 2
@@ -36,14 +30,12 @@ public class AIManager : MonoBehaviour
             case 2:
                 transform.position = new Vector2(0.75f, 0.4330127f);
                 offset = new Vector2(0.5f, (1f / Mathf.Sqrt(12)));
-                offset *= triangleSide;
+                offset *= scale;
                 break;
         }
     }
     public void StartBot()
     {
-        //GameManager.getInstance().findPath();
-        //path = GameManager.getInstance().path;
         switch (PlayerPrefs.GetInt("type"))
         {
             case 1:
@@ -135,14 +127,14 @@ public class AIManager : MonoBehaviour
                 float y;
                 if (indexY % 2 == 0)
                 {
-                    x = (indexX + indexY / 4f) * triangleSide;
-                    y = (indexY * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f;
+                    x = (indexX + indexY / 4f) * scale;
+                    y = (indexY * Mathf.Sin(Mathf.PI / 3)) * scale / 2f;
                     currentPoint = new Vector2(x, y) + offset;
                 }
                 else
                 {
-                    x = (indexX + 1.25f + indexY / 4f) * triangleSide;
-                    y = ((indexY + 1) * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f;
+                    x = (indexX + 1.25f + indexY / 4f) * scale;
+                    y = ((indexY + 1) * Mathf.Sin(Mathf.PI / 3)) * scale / 2f;
                     currentPoint = new Vector2(x, y) - offset;
                 }
                 destinationPoint = new Vector2();
@@ -161,8 +153,8 @@ public class AIManager : MonoBehaviour
                             indexY++;
                             break;
                     }
-                    destinationPoint = new Vector2((indexX + 1.25f + indexY / 4f) * triangleSide,
-                                ((indexY + 1) * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f) - offset;
+                    destinationPoint = new Vector2((indexX + 1.25f + indexY / 4f) * scale,
+                                ((indexY + 1) * Mathf.Sin(Mathf.PI / 3)) * scale / 2f) - offset;
                 }
                 else //rotated triangle
                 {
@@ -179,8 +171,8 @@ public class AIManager : MonoBehaviour
                             indexY--;
                             break;
                     }
-                    destinationPoint = new Vector2((indexX + indexY / 4f) * triangleSide,
-                        (indexY * Mathf.Sin(Mathf.PI / 3)) * triangleSide / 2f) + offset;
+                    destinationPoint = new Vector2((indexX + indexY / 4f) * scale,
+                        (indexY * Mathf.Sin(Mathf.PI / 3)) * scale / 2f) + offset;
                 }
                 break;
             default:

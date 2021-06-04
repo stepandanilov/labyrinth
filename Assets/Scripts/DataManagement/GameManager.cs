@@ -23,13 +23,13 @@ public class GameManager
             switch (obj.name)
             {
                 case "Player":
-                    WinMenu.getInstance().Victory();
+                    MainUI.getInstance().Victory();
                     break;
                 case "AI1":
-                    Debug.Log("AI1");
+                    MainUI.getInstance().Lose();
                     break;
                 case "AI2":
-                    Debug.Log("AI2");
+                    MainUI.getInstance().Lose();
                     break;
             }
         }
