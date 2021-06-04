@@ -19,7 +19,7 @@ public class MazeSpawner : MonoBehaviour
 
     public Transform Player;
     // Start is called before the first frame update
-    public void Start()
+    public void Awake()
     {
         switch (PlayerPrefs.GetInt("type"))
         {

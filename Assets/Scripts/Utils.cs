@@ -12,18 +12,33 @@ public static class Utils
 
     //AI - 1
     public static List<int> path1 = new List<int>();
-    public static int x1 = 0;
-    public static int y1 = 0;
-    public static int wallRightPosition = 3;
-    public static int wallRightPositionRotated = 2;
-    public static bool change = true;
-    private static bool turn = false;
+    public static int x1;
+    public static int y1;
+    public static int wallRightPosition;
+    public static int wallRightPositionRotated;
+    public static bool change;
+    private static bool turn;
 
     //AI - 2
     public static List<int> path2;
-    public static int x2 = 0;
-    public static int y2 = 0;
-    public static bool pathNotFound = true;
+    public static int x2;
+    public static int y2;
+    public static bool pathNotFound;
+    public static void InitializeVariables()
+    {
+        path1 = new List<int>();
+        x1 = 0;
+        y1 = 0;
+        wallRightPosition = 3;
+        wallRightPositionRotated = 2;
+        change = true;
+        turn = false;
+
+        path2 = new List<int>();
+        x2 = 0;
+        y2 = 0;
+        pathNotFound = true;
+    }
     public static void FindPath1()
     {
         // not moving = 0
@@ -441,10 +456,10 @@ public static class Utils
         switch (ai)
         {
             case 1:
-                path1.Add(Utils.finishWallDirection);
+                path1.Add(finishWallDirection);
                 break;
             case 2:
-                path2.Add(Utils.finishWallDirection);
+                path2.Add(finishWallDirection);
                 break;
         }
     }

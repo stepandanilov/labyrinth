@@ -10,20 +10,22 @@ public class MainUI : MonoBehaviour
     public GameObject WinMenuUI;
     public GameObject LoseMenuUI;
     public int countdownTime;
-    private int countdownTextFontSize = 700;
+    private int countdownTextFontSize = 500;
     public GameObject countdownDisplay;
     public TMPro.TMP_Text countdownText;
+
+    public GameController gameController;
     private void Start()
     {
         instance = this;
 
-        StartCoroutine(countdownToStart());
+        StartCoroutine(countdownToStart());     
     }
     public static MainUI getInstance()
     {
         return instance;
     }
-    public void Update()
+    public void FixedUpdate()
     {
         if (countdownDisplay.activeSelf) countdownText.fontSize -= 1f;
     }
@@ -39,12 +41,15 @@ public class MainUI : MonoBehaviour
 
             countdownTime--;
         }
+        countdownText.fontSize = countdownTextFontSize;
 
         countdownText.text = "GO";
 
         yield return new WaitForSeconds(1f);
 
         countdownDisplay.SetActive(false);
+
+        gameController.StartGame();
     }
     public void Victory()
     {

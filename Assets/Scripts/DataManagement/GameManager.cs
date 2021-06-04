@@ -5,8 +5,6 @@ using UnityEngine;
 public class GameManager
 {
     private static GameManager instance = null;
-
-    public List<int> path = new List<int>();
     private GameManager() { }
     public static GameManager getInstance()
     {

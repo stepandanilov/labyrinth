@@ -6,7 +6,7 @@ public class AIManager : MonoBehaviour
 {
     public List<int> path = new List<int>();
     private List<Vector2> pathToPoint = new List<Vector2>();
-    private int framesToPoints = 30;
+    private int framesToPoints;
     public int indexX = 0;
     public int indexY = 0;
     private float scale = 1.5f;
@@ -31,6 +31,24 @@ public class AIManager : MonoBehaviour
                 transform.position = new Vector2(0.75f, 0.4330127f);
                 offset = new Vector2(0.5f, (1f / Mathf.Sqrt(12)));
                 offset *= scale;
+                break;
+        }
+        switch (PlayerPrefs.GetInt("diff"))
+        {
+            case 0:
+                framesToPoints = 60;
+                break;
+            case 1:
+                framesToPoints = 40;
+                break;
+            case 2:
+                framesToPoints = 30;
+                break;
+            case 3:
+                framesToPoints = 20;
+                break;
+            default:
+                framesToPoints = 40;
                 break;
         }
     }

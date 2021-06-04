@@ -14,6 +14,7 @@ public class MazeSettings : MonoBehaviour
     //theta settings
     public TMP_InputField radiusInput;
     public TMP_Dropdown dropdown;
+    public TMP_Dropdown diffDropdown;
 
     public TMP_Text widthPlaceholder;
     public TMP_Text heightPlaceholder;
@@ -26,10 +27,13 @@ public class MazeSettings : MonoBehaviour
 
     public JsonHandler.DataCollection data;
 
-    string dropdownText = "gamma";
+    string dropdownText;
+    int difficulty;
 
     private void Start()
     {
+        dropdownText = "gamma";
+        difficulty = 0;
         JsonHandler.getInstance().LoadField();
         data = new JsonHandler.DataCollection
         {
@@ -114,6 +118,7 @@ public class MazeSettings : MonoBehaviour
         PlayerPrefs.SetInt("width", data.gammaWidth);
         PlayerPrefs.SetInt("length", data.deltaLength);
         PlayerPrefs.SetInt("radius", data.thetaRadius);
+        PlayerPrefs.SetInt("diff", difficulty);
     }
     public void DropdownItemSelected(TMP_Dropdown dropdown)
     {
@@ -138,5 +143,9 @@ public class MazeSettings : MonoBehaviour
                 deltaSettings.SetActive(false);
                 break;
         }
+    }
+    public void DiffucultyDropdownItemSelected(TMP_Dropdown dropdown)
+    {
+        difficulty = dropdown.value;
     }
 }
