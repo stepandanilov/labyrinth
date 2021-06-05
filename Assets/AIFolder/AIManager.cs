@@ -36,10 +36,10 @@ public class AIManager : MonoBehaviour
         switch (PlayerPrefs.GetInt("diff"))
         {
             case 0:
-                framesToPoints = 60;
+                framesToPoints = 40;
                 break;
             case 1:
-                framesToPoints = 40;
+                framesToPoints = 30;
                 break;
             case 2:
                 framesToPoints = 30;

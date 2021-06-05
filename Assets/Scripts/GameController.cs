@@ -18,9 +18,26 @@ public class GameController : MonoBehaviour
         Utils.InitializeVariables();
         if (PlayerPrefs.GetInt("type") <= 2)
         {
-            AI1.GetComponent<AIManager>().StartBot();
-            AI2.GetComponent<AIManager>().StartBot2();
+            switch (PlayerPrefs.GetInt("diff"))
+            {
+                case 0:
+                    AI1.SetActive(true);
+                    break;
+                case 1:
+                    AI1.SetActive(true);
+                    break;
+                case 2:
+                    AI2.SetActive(true);
+                    break;
+                case 3:
+                    AI2.SetActive(true);
+                    break;
+            }
+            if (AI1.activeSelf) AI1.GetComponent<AIManager>().StartBot();
+            if (AI2.activeSelf) AI2.GetComponent<AIManager>().StartBot2();
         }
+        
+
         player.GetComponent<MovementScript>().enabled = true;
     }
 }

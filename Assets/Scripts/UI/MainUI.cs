@@ -10,9 +10,9 @@ public class MainUI : MonoBehaviour
     public GameObject WinMenuUI;
     public GameObject LoseMenuUI;
     public int countdownTime;
-    private int countdownTextFontSize = 500;
     public GameObject countdownDisplay;
     public TMPro.TMP_Text countdownText;
+    private int countdownTextFontSize = 500;
 
     public GameController gameController;
     private void Start()
