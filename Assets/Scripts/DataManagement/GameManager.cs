@@ -30,6 +30,7 @@ public class GameManager
                     MainUI.getInstance().Lose();
                     break;
             }
+            Utils.gameStarted = false;
         }
     }
 }

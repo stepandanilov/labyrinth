@@ -20,7 +20,21 @@ public class JsonHandler
     public DataCollection data;
     public void LoadField()
     {
-        data = JsonUtility.FromJson<DataCollection>(File.ReadAllText(jsonPath));
+        try
+        {
+            data = JsonUtility.FromJson<DataCollection>(File.ReadAllText(jsonPath));
+        }
+        catch
+        {
+            data = new DataCollection {
+                type = 1,
+                gammaHeight = 5,
+                gammaWidth = 5,
+                deltaLength = 6,
+                thetaRadius = 5,
+                thetaCellNumber = 16
+            };
+        }
         PlayerPrefs.SetInt("type", data.type);
         PlayerPrefs.SetInt("height", data.gammaHeight);
         PlayerPrefs.SetInt("width", data.gammaWidth);

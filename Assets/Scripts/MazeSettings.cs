@@ -96,18 +96,18 @@ public class MazeSettings : MonoBehaviour
     public bool inputsAreCorrect()
     {
         bool flag = true;
-        if (dropdownText == "gamma")
+        switch(dropdownText)
         {
-            if (data.gammaWidth <= 1) flag = false;
-            if (data.gammaHeight <= 1) flag = false;
-        }
-        if (dropdownText == "delta")
-        {
-            if (data.deltaLength <= 3) flag = false;
-        }
-        if (dropdownText == "theta")
-        {
-            if (data.thetaRadius <= 0) flag = false;
+            case "gamma":
+                if (data.gammaWidth <= 1) flag = false;
+                if (data.gammaHeight <= 1) flag = false;
+                break;
+            case "delta":
+                if (data.deltaLength <= 3) flag = false;
+                break;
+            case "theta":
+                if (data.thetaRadius <= 0) flag = false;
+                break;
         }
         return flag;
     }

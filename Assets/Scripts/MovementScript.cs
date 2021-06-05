@@ -6,14 +6,8 @@ public class MovementScript : MonoBehaviour
 {
     private float speed = 5f;
     public Rigidbody2D rigidBody;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, Input.GetAxis("Vertical") * speed);
     }

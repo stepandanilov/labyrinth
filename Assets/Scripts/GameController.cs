@@ -39,5 +39,6 @@ public class GameController : MonoBehaviour
         
 
         player.GetComponent<MovementScript>().enabled = true;
+        Utils.gameStarted = true;
     }
 }

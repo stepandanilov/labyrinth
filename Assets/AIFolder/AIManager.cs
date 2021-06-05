@@ -36,19 +36,19 @@ public class AIManager : MonoBehaviour
         switch (PlayerPrefs.GetInt("diff"))
         {
             case 0:
-                framesToPoints = 40;
+                framesToPoints = 15;
                 break;
             case 1:
-                framesToPoints = 30;
+                framesToPoints = 12;
                 break;
             case 2:
-                framesToPoints = 30;
+                framesToPoints = 12;
                 break;
             case 3:
-                framesToPoints = 20;
+                framesToPoints = 10;
                 break;
             default:
-                framesToPoints = 40;
+                framesToPoints = 12;
                 break;
         }
     }
@@ -65,9 +65,6 @@ public class AIManager : MonoBehaviour
         }
         Utils.GetThroughFinishLine(1);
         path = Utils.path1;
-        direction = path[0];
-        path.RemoveAt(0);
-        calcPathToPoint(direction);
     }
     public void StartBot2()
     {
@@ -88,27 +85,27 @@ public class AIManager : MonoBehaviour
         Utils.path2.RemoveAt(Utils.path2.Count - 1);
         Utils.GetThroughFinishLine(2);
         path = Utils.path2;
-        direction = path[0];
-        path.RemoveAt(0);
-        calcPathToPoint(direction);
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        if (pathToPoint.Count != 0)
+        if (Utils.gameStarted)
         {
-            transform.position = pathToPoint[0];
-            pathToPoint.RemoveAt(0);
-        }
-
-        if (pathToPoint.Count == 0)
-        {
-            if (path.Count != 0)
+            if (pathToPoint.Count != 0)
             {
-                direction = path[0];
-                path.RemoveAt(0);
-                calcPathToPoint(direction);
+                transform.position = pathToPoint[0];
+                pathToPoint.RemoveAt(0);
+            }
+            else
+            {
+                if (path.Count != 0)
+                {
+                    direction = path[0];
+                    path.RemoveAt(0);
+                    calcPathToPoint(direction);
+                }
             }
         }
+        
     }
     private void calcPathToPoint(int direction)
     {
@@ -204,7 +201,7 @@ public class AIManager : MonoBehaviour
         float m;
         float pointX;
         float pointY;
-        for (int i = 0; i < framesToPoints; i++)
+        for (int i = 1; i < framesToPoints; i++)
         {
             n = i;
             m = framesToPoints - 1 - i;

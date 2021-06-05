@@ -9,6 +9,7 @@ public static class Utils
     private static readonly int width = PlayerPrefs.GetInt("width") + 1;
     private static readonly int height = PlayerPrefs.GetInt("height") + 1;
     public static int finishWallDirection;
+    public static bool gameStarted = false;
 
     //AI - 1
     public static List<int> path1 = new List<int>();
