@@ -16,7 +16,8 @@ public class MazeSpawner : MonoBehaviour
     //theta
     public GameObject ThetaCellPrefab;
     public GameObject ThetaFinishCellPrefab;
-
+    //nefu
+    public GameObject NefuMazePrefab;
     public Transform Player;
     // Start is called before the first frame update
     public void Awake()
@@ -31,6 +32,9 @@ public class MazeSpawner : MonoBehaviour
                 break;
             case 3:
                 thetaMaze();
+                break;
+            case 4:
+                nefuMaze();
                 break;
         }
     }
@@ -223,5 +227,32 @@ public class MazeSpawner : MonoBehaviour
         } 
 
         edgeCollider.points = colliderPoints;
+    }
+    public void nefuMaze()
+    {
+        Transform maze = Instantiate(NefuMazePrefab, Vector2.zero, Quaternion.identity).GetComponent<Transform>();
+        foreach(Transform child in maze)
+        {
+            if (child.gameObject.activeSelf)
+            {
+                LineRenderer lineRenderer = child.gameObject.GetComponent<LineRenderer>();
+                Vector3[] points = new Vector3[lineRenderer.positionCount];
+                lineRenderer.GetPositions(points);
+
+                EdgeCollider2D edgeCollider = child.gameObject.AddComponent<EdgeCollider2D>();
+                var colliderPoints = new Vector2[lineRenderer.positionCount];
+                for (int i = 0; i < lineRenderer.positionCount; i++)
+                {
+                    if (lineRenderer.useWorldSpace)
+                    {
+                        child.transform.position = Vector3.zero;
+                    }
+                    colliderPoints[i].x = points[i].x;
+                    colliderPoints[i].y = points[i].y;
+                }
+                edgeCollider.points = colliderPoints;
+                Debug.Log(child.gameObject.GetComponent<LineRenderer>().positionCount);
+            }
+        }
     }
 }

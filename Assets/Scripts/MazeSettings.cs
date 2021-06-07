@@ -63,34 +63,37 @@ public class MazeSettings : MonoBehaviour
     }
     public void getInputs()
     {
-        if (dropdownText == "gamma")
+        switch(dropdownText)
         {
-            if (widthInput.text != "")
-            {
-                data.gammaWidth = int.Parse(widthInput.text);
-            }
+            case "gamma":
+                if (widthInput.text != "")
+                {
+                    data.gammaWidth = int.Parse(widthInput.text);
+                }
 
-            if (heightInput.text != "")
-            {
-                data.gammaHeight = int.Parse(heightInput.text);
-            }
-            data.type = 1;
-        }
-        if (dropdownText == "delta")
-        {
-            if (lengthInput.text != "")
-            {
-                data.deltaLength = int.Parse(lengthInput.text);
-            }
-            data.type = 2;
-        }
-        if (dropdownText == "theta")
-        {
-            if (radiusInput.text != "")
-            {
-                data.thetaRadius = int.Parse(radiusInput.text);
-            }
-            data.type = 3;
+                if (heightInput.text != "")
+                {
+                    data.gammaHeight = int.Parse(heightInput.text);
+                }
+                data.type = 1;
+                break;
+            case "delta":
+                if (lengthInput.text != "")
+                {
+                    data.deltaLength = int.Parse(lengthInput.text);
+                }
+                data.type = 2;
+                break;
+            case "theta":
+                if (radiusInput.text != "")
+                {
+                    data.thetaRadius = int.Parse(radiusInput.text);
+                }
+                data.type = 3;
+                break;
+            case "nefu":
+                data.type = 4;
+                break;
         }
     }
     public bool inputsAreCorrect()
@@ -139,6 +142,11 @@ public class MazeSettings : MonoBehaviour
                 break;
             case "theta":
                 thetaSettings.SetActive(true);
+                gammaSettings.SetActive(false);
+                deltaSettings.SetActive(false);
+                break;
+            case "nefu":
+                thetaSettings.SetActive(false);
                 gammaSettings.SetActive(false);
                 deltaSettings.SetActive(false);
                 break;
