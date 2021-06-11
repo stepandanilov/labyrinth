@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6087336079587596711}
   - component: {fileID: -4696170017858538372}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ThetaFinishCellPrefab
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,9 +54,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8733341450113301369}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FinishWallBottom
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: -9097868186270925570}
   m_Layer: 0
   m_Name: TriangleCellPrefab
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,6 +201,8 @@ MonoBehaviour:
   WallLeft: {fileID: 3897127485520045099}
   WallBottom: {fileID: 7898184455806960487}
   WallRight: {fileID: 7091192018294441444}
+  x: 0
+  y: 0
 --- !u!1 &7091192018294441444
 GameObject:
   m_ObjectHideFlags: 0

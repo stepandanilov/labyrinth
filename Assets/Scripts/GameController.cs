@@ -7,12 +7,7 @@ public class GameController : MonoBehaviour
     public GameObject AI1;
     public GameObject AI2;
     public GameObject player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    public GameObject AIMO;
     public void StartGame()
     {
         Utils.InitializeVariables();
@@ -22,22 +17,25 @@ public class GameController : MonoBehaviour
             {
                 case 0:
                     AI1.SetActive(true);
+                    AI1.GetComponent<AIManager>().StartBot();
                     break;
                 case 1:
                     AI1.SetActive(true);
+                    AI1.GetComponent<AIManager>().StartBot();
                     break;
                 case 2:
                     AI2.SetActive(true);
+                    AI2.GetComponent<AIManager>().StartBot2();
                     break;
                 case 3:
                     AI2.SetActive(true);
+                    AI2.GetComponent<AIManager>().StartBot2();
+                    break;
+                case 4:
+                    AIMO.SetActive(true);
                     break;
             }
-            if (AI1.activeSelf) AI1.GetComponent<AIManager>().StartBot();
-            if (AI2.activeSelf) AI2.GetComponent<AIManager>().StartBot2();
         }
-        
-
         player.GetComponent<MovementScript>().enabled = true;
         Utils.gameStarted = true;
     }

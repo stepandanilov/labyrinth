@@ -22,6 +22,6 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameManager.getInstance().CollisionCheck(collision, transform);
+        GameManager.GetInstance().CollisionCheck(collision, transform);
     }
 }

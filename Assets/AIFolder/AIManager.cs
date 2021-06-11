@@ -101,13 +101,13 @@ public class AIManager : MonoBehaviour
                 {
                     direction = path[0];
                     path.RemoveAt(0);
-                    calcPathToPoint(direction);
+                    CalcPathToPoint(direction);
                 }
             }
         }
         
     }
-    private void calcPathToPoint(int direction)
+    private void CalcPathToPoint(int direction)
     {
         Vector2 currentPoint;
         Vector2 destinationPoint;
@@ -214,6 +214,6 @@ public class AIManager : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameManager.getInstance().CollisionCheck(collision, transform);
+        GameManager.GetInstance().CollisionCheck(collision, transform);
     }
 }

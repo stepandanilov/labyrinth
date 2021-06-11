@@ -50,10 +50,10 @@ public class MazeSettings : MonoBehaviour
     }
     public void StartGame()
     {
-        getInputs();
-        if (inputsAreCorrect())
+        GetInputs();
+        if (InputsAreCorrect())
         {
-            setGlobalVariables();
+            SetGlobalVariables();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
@@ -61,7 +61,7 @@ public class MazeSettings : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
-    public void getInputs()
+    public void GetInputs()
     {
         switch(dropdownText)
         {
@@ -96,7 +96,7 @@ public class MazeSettings : MonoBehaviour
                 break;
         }
     }
-    public bool inputsAreCorrect()
+    public bool InputsAreCorrect()
     {
         bool flag = true;
         switch(dropdownText)
@@ -114,7 +114,7 @@ public class MazeSettings : MonoBehaviour
         }
         return flag;
     }
-    public void setGlobalVariables()
+    public void SetGlobalVariables()
     {
         PlayerPrefs.SetInt("type", data.type);
         PlayerPrefs.SetInt("height", data.gammaHeight);

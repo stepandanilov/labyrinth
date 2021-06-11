@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2205328846163663069}
   - component: {fileID: 8718920976334507921}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FinishCell
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,9 +62,9 @@ GameObject:
   - component: {fileID: 3733109227327575537}
   - component: {fileID: 6162823983648940074}
   - component: {fileID: 1222595106520686711}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FinishWallBottom
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,9 +214,9 @@ GameObject:
   - component: {fileID: 290436568562708968}
   - component: {fileID: 7599200777267472899}
   - component: {fileID: 283480778045765664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FinishWallLeft
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,9 +366,9 @@ GameObject:
   - component: {fileID: 1286801473102072706}
   - component: {fileID: 5900863992935888470}
   - component: {fileID: 6510442305401230042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FinishWallTop
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,9 +518,9 @@ GameObject:
   - component: {fileID: 3999064847634173578}
   - component: {fileID: 1292044067497231536}
   - component: {fileID: 1595464524024282648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FinishWallRight
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

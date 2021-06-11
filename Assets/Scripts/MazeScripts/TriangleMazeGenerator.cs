@@ -53,13 +53,13 @@ public class TriangleMazeGenerator
 
             }
         }
-        removeWallsWithBacktracker(maze);
+        RemoveWallsWithBacktracker(maze);
 
-        placeExit(maze);
+        PlaceExit(maze);
 
         return maze;
     }
-    private void removeWallsWithBacktracker(TriangleMazeGeneratorCell[,] maze)
+    private void RemoveWallsWithBacktracker(TriangleMazeGeneratorCell[,] maze)
     {
         TriangleMazeGeneratorCell current = maze[0, 0];
         current.Visited = true;
@@ -136,7 +136,7 @@ public class TriangleMazeGenerator
         }
     }
     
-    private void placeExit(TriangleMazeGeneratorCell[,] maze)
+    private void PlaceExit(TriangleMazeGeneratorCell[,] maze)
     {
         //finding furthest cell
         TriangleMazeGeneratorCell furthest = maze[0, 0];

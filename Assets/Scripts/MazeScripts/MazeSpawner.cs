@@ -18,27 +18,26 @@ public class MazeSpawner : MonoBehaviour
     public GameObject ThetaFinishCellPrefab;
     //nefu
     public GameObject NefuMazePrefab;
-    public Transform Player;
     // Start is called before the first frame update
     public void Awake()
     {
         switch (PlayerPrefs.GetInt("type"))
         {
             case 1:
-                gammaMaze();
+                GammaMaze();
                 break;
             case 2:
-                deltaMaze();
+                DeltaMaze();
                 break;
             case 3:
-                thetaMaze();
+                ThetaMaze();
                 break;
             case 4:
-                nefuMaze();
+                NefuMaze();
                 break;
         }
     }
-    public void gammaMaze()
+    public void GammaMaze()
     {
         MazeGenerator generator = new MazeGenerator();
         MazeGeneratorCell[,] maze = generator.GenerateMaze();
@@ -98,7 +97,7 @@ public class MazeSpawner : MonoBehaviour
             }
         }
     }
-    public void deltaMaze()
+    public void DeltaMaze()
     {
         TriangleMazeGenerator generator = new TriangleMazeGenerator();
         TriangleMazeGeneratorCell[,] maze = generator.GenerateMaze();
@@ -143,13 +142,13 @@ public class MazeSpawner : MonoBehaviour
             }
         }
     }
-    public void thetaMaze()
+    public void ThetaMaze()
     {
         ThetaMazeGenerator generator = new ThetaMazeGenerator();
         ThetaMazeCell[,] maze = generator.GenerateMaze();
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            for (int y = 0; y < Utils.getNumberOfCellsInRow(x) ; y++) 
+            for (int y = 0; y < Utils.GetNumberOfCellsInRow(x) ; y++) 
             {
                 ThetaCell c = Instantiate(ThetaCellPrefab, Vector2.zero, Quaternion.identity).GetComponent<ThetaCell>();
                 MakeThetaCellBottomWall(c.gameObject, x, "WallBottom");
@@ -209,7 +208,7 @@ public class MazeSpawner : MonoBehaviour
         var points = new Vector3[lineRenderer.positionCount];
 
         int n = PlayerPrefs.GetInt("cellNumber");
-        float angle =((float)360.0 / Utils.getNumberOfCellsInRow(x)) / (float)(lineRenderer.positionCount - 1);
+        float angle =((float)360.0 / Utils.GetNumberOfCellsInRow(x)) / (float)(lineRenderer.positionCount - 1);
         for (int i = 0; i < lineRenderer.positionCount; i++) 
         {
             points[i] = new Vector3((Mathf.Cos(angle * Mathf.PI / (float)180.0 * i)),
@@ -228,7 +227,7 @@ public class MazeSpawner : MonoBehaviour
 
         edgeCollider.points = colliderPoints;
     }
-    public void nefuMaze()
+    public void NefuMaze()
     {
         Transform maze = Instantiate(NefuMazePrefab, Vector2.zero, Quaternion.identity).GetComponent<Transform>();
         foreach(Transform child in maze)
@@ -251,7 +250,6 @@ public class MazeSpawner : MonoBehaviour
                     colliderPoints[i].y = points[i].y;
                 }
                 edgeCollider.points = colliderPoints;
-                Debug.Log(child.gameObject.GetComponent<LineRenderer>().positionCount);
             }
         }
     }

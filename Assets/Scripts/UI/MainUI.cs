@@ -19,9 +19,9 @@ public class MainUI : MonoBehaviour
     {
         instance = this;
 
-        StartCoroutine(countdownToStart());     
+        StartCoroutine(CountdownToStart());     
     }
-    public static MainUI getInstance()
+    public static MainUI GetInstance()
     {
         return instance;
     }
@@ -29,7 +29,7 @@ public class MainUI : MonoBehaviour
     {
         if (countdownDisplay.activeSelf) countdownText.fontSize -= 1f;
     }
-    IEnumerator countdownToStart()
+    private IEnumerator CountdownToStart()
     {
         while (countdownTime > 0)
         {

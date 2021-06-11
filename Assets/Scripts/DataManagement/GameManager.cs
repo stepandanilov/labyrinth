@@ -6,7 +6,7 @@ public class GameManager
 {
     private static GameManager instance = null;
     private GameManager() { }
-    public static GameManager getInstance()
+    public static GameManager GetInstance()
     {
         if (instance == null)
         {
@@ -21,13 +21,16 @@ public class GameManager
             switch (obj.name)
             {
                 case "Player":
-                    MainUI.getInstance().Victory();
+                    MainUI.GetInstance().Victory();
                     break;
                 case "AI1":
-                    MainUI.getInstance().Lose();
+                    MainUI.GetInstance().Lose();
                     break;
                 case "AI2":
-                    MainUI.getInstance().Lose();
+                    MainUI.GetInstance().Lose();
+                    break;
+                case "AI_MO":
+                    MainUI.GetInstance().Lose();
                     break;
             }
             Utils.gameStarted = false;

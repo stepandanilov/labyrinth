@@ -441,7 +441,7 @@ public static class Utils
         }
         path.RemoveAt(path.Count - 1);
     }
-    public static int getNumberOfCellsInRow(int x)
+    public static int GetNumberOfCellsInRow(int x)
     {
         int cells = PlayerPrefs.GetInt("cellNumber") / 4;
 
